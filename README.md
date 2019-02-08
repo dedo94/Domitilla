@@ -4,7 +4,8 @@ LIBRERIE NECESSARIE:
   - Graphviz
   - PySimpleGUI
   
-UTILIZZO: 
+UTILIZZO:
+
   Per avviare il programma recarsi nella cartella e utilizzare il comando "python3 guy.py".
   Cosa fanno i bottoni?
   COMPOSE: selezionare due grafi tramite i bottone Browse appartenenti rispettivamente a FIRST GRAPH e SECOND GRAPH,
