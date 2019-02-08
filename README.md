@@ -22,8 +22,8 @@ UTILIZZO:
   o non strutturato. Draw restituirà il disegno in .pdf (se vengono inseriti due grafi verranno disegnati entrambi).
   E' possibile, inoltre, modificare il path di salvataggio dei file.
   
-  All'interno della cartella grafi sono presenti alcuni esempi di grafo. Quelli strutturati sono in formato .txt;
-  quelli non strutturati no in formato .dot
+  All'interno della cartella grafi sono presenti alcuni esempi di grafo. Quelli strutturati sono in formato .txt mentre
+  quelli non strutturati sono in formato .dot
 
 NOTE:
 
