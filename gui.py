@@ -2,7 +2,7 @@ import sys
 sys.path.append('/usr/local/lib/python2.7/dist-packages')
 import PySimpleGUI as sg
 from composition import *
-
+from convert import *
 
 def execute():
     path = "Browse..."
@@ -29,7 +29,7 @@ def execute():
         [sg.Text('_' * 65)],
         [sg.Text("Save name:", size=(15, 1)), sg.InputText("Example", key='_sname_')],
         [sg.Submit("Compose", key='_comp_'), sg.Submit("Fuse", key='_merge_'),
-         sg.Submit("Draw", key='_draw_'), sg.Cancel()]
+         sg.Submit("Draw", key='_draw_'), sg.Submit("PetriNet", key='_petri_'), sg.Cancel()]
 
     ]
 
@@ -58,6 +58,21 @@ def execute():
                 dot_not_struct(pathfy(values['_gr2_']), "draw2", drstr2, 1)
             else:
                 struct_gr(pathfy(values['_gr2_']), "draw2", drstr2, 1)
+
+    elif button == "_petri_":
+        if values['_gr1_'].count("/") > 0:
+            drstr1 = []
+            if values['_r1_'] is True:
+                petri_net(pathfy(values['_gr1_']), "petri1", drstr1, path)
+            else:
+                print("Please insert unstructured graph")
+
+        if values['_gr2_'].count("/") > 0:
+            drstr2 = []
+            if values['_r2_'] is True:
+                petri_net(pathfy(values['_gr2_']), "petri2", drstr2, path)
+            else:
+                print("Please insert unstructured graph")
 
     else:
         ptg1 = pathfy(values['_gr1_'])
