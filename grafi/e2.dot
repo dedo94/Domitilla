@@ -1,0 +1,11 @@
+digraph grf3 {
+	0 [label="" shape=circle]
+		0 -> 1
+	1 [label="G -> H : g" shape=rect]
+		1 -> 2
+	2 [label="I -> J : c" shape=rect]
+		2 -> 3
+	3 [label="K -> L : l" shape=rect]
+		3 -> 4
+	4 [label="" shape=doublecircle]
+}
