@@ -4,6 +4,7 @@ LIBRERIE NECESSARIE:
   - Graphviz
   - PySimpleGUI
   
+  
 UTILIZZO:
 
   Per avviare il programma recarsi nella cartella da terminale e utilizzare il comando "python3 guy.py".
@@ -22,11 +23,14 @@ UTILIZZO:
   o non strutturato. Draw restituirà il disegno in .pdf (se vengono inseriti due grafi verranno disegnati entrambi).
   E' possibile, inoltre, modificare il path di salvataggio dei file.
   
+  - PETRINET: l'utilizzo è il medesimo di DRAW. Dato in input un grafo.dot restituisce la "traduzione" grafo.ndr
+  
   All'interno della cartella grafi sono presenti alcuni esempi di grafo. Quelli strutturati sono in formato .txt mentre
   quelli non strutturati sono in formato .dot
   
   N.B.: sfortunatamente ogni volta che viene portata a remine una operazione è necessario rieseguire il comando 
   "python3 guy.py" da terminale.
+
 
 NOTE:
 
