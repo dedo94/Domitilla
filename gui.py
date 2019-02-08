@@ -14,19 +14,19 @@ def execute():
     layout = [                                                                                                          # inizio layout grafico
         [sg.Text('Choose the folder to save the files:', size=(35, 1))],
         [sg.InputText(path), sg.FolderBrowse(key='_folder_')],
-
+        [sg.Text('_' * 65)],
         [sg.Text("FIRST GRAPH:", size=(20, 1)), sg.Radio('Unstructured', "R1", default=True, key='_r1_'),
          sg.Radio('Structured', "R1")],
         [sg.Text("Insert fusion node here. Every line MUST contain one node.", size=(60, 1))],
         [sg.Multiline(size=(60, 3), key='_fn1_')],
         [sg.Text("Select graph", size=(45, 1)), sg.FileBrowse(key='_gr1_')],
-
+        [sg.Text('_' * 65)],
         [sg.Text("SECOND GRAPH:", size=(20, 1)), sg.Radio('Unstructured', "R2", default=True, key='_r2_'),
          sg.Radio('Structured', "R2")],
         [sg.Text("Insert fusion node here. Every line MUST contain one node.", size=(60, 1))],
         [sg.Multiline(size=(60, 3), key='_fn2_')],
         [sg.Text("Select graph", size=(45, 1)), sg.FileBrowse(key='_gr2_')],
-
+        [sg.Text('_' * 65)],
         [sg.Text("Save name:", size=(15, 1)), sg.InputText("Example", key='_sname_')],
         [sg.Submit("Compose", key='_comp_'), sg.Submit("Fuse", key='_merge_'),
          sg.Submit("Draw", key='_draw_'), sg.Cancel()]
