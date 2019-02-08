@@ -6,7 +6,7 @@ LIBRERIE NECESSARIE:
   
 UTILIZZO:
 
-  Per avviare il programma recarsi nella cartella e utilizzare il comando "python3 guy.py".
+  Per avviare il programma recarsi nella cartella da terminale e utilizzare il comando "python3 guy.py".
   Cosa fanno i bottoni?
   
   - COMPOSE: selezionare due grafi tramite i bottone Browse appartenenti rispettivamente a FIRST GRAPH e SECOND GRAPH,
@@ -24,6 +24,9 @@ UTILIZZO:
   
   All'interno della cartella grafi sono presenti alcuni esempi di grafo. Quelli strutturati sono in formato .txt mentre
   quelli non strutturati sono in formato .dot
+  
+  N.B.: sfortunatamente ogni volta che viene portata a remine una operazione è necessario rieseguire il comando 
+  "python3 guy.py" da terminale.
 
 NOTE:
 
