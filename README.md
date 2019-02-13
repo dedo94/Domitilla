@@ -28,7 +28,7 @@ UTILIZZO:
   All'interno della cartella grafi sono presenti alcuni esempi di grafo. Quelli strutturati sono in formato .txt mentre
   quelli non strutturati sono in formato .dot
   
-  N.B.: sfortunatamente ogni volta che viene portata a remine una operazione è necessario rieseguire il comando 
+  N.B.: sfortunatamente ogni volta che viene portata a termine un'operazione è necessario rieseguire il comando 
   "python3 guy.py" da terminale.
 
 
