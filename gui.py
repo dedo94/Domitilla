@@ -3,6 +3,8 @@ sys.path.append('/usr/local/lib/python2.7/dist-packages')
 import PySimpleGUI as sg
 from composition import *
 from convert import *
+from strtogr import *
+
 
 def execute():
     path = "Browse..."
@@ -28,7 +30,7 @@ def execute():
         [sg.Text("Select graph", size=(45, 1)), sg.FileBrowse(key='_gr2_')],
         [sg.Text('_' * 65)],
         [sg.Text("Save name:", size=(15, 1)), sg.InputText("Example", key='_sname_')],
-        [sg.Submit("Compose", key='_comp_'), sg.Submit("Fuse", key='_merge_'),
+        [sg.Submit("Compose", key='_comp_'), sg.Submit("Fuse", key='_fuse_'),
          sg.Submit("Draw", key='_draw_'), sg.Submit("PetriNet", key='_petri_'), sg.Cancel()]
 
     ]
@@ -63,7 +65,8 @@ def execute():
         if values['_gr1_'].count("/") > 0:
             drstr1 = []
             if values['_r1_'] is True:
-                petri_net(pathfy(values['_gr1_']), "petri1", drstr1, path)
+                # petri_net(pathfy(values['_gr1_']), "petri1", drstr1, path)
+                petri2(pathfy(values['_gr1_']), "petri1", drstr1, path)
             else:
                 print("Please insert unstructured graph")
 
@@ -74,28 +77,49 @@ def execute():
             else:
                 print("Please insert unstructured graph")
 
-    else:
-        ptg1 = pathfy(values['_gr1_'])
-        ptg2 = pathfy(values['_gr2_'])
-        if button == "_comp_":
-            composition(ptg1, ptg2, values['_sname_'], 1)
+    elif button == "_comp_":
+            composition(pathfy(values['_gr1_']), pathfy(values['_gr2_']), values['_sname_'], 1)
 
-        elif button == "_merge_":
+    elif button == "_fuse_":
+        nf = []
+        if values['_gr1_'].count("/") > 0 and values['_gr2_'].count("/") > 0:
 
             nfx = values['_fn1_'].split("\n")
-            nf1 = []
             for el in range(nfx.__len__()):
                 if nfx[el].count("->") == 1 and nfx[el].count(":") == 1:
-                    nf1.append(nfx[el].strip())
+                    if nfx[el].strip() not in nf:
+                        nf.append(nfx[el].strip())
 
             nfx = values['_fn2_'].split("\n")
-            nf2 = []
             for el in range(nfx.__len__()):
                 if nfx[el].count("->") == 1 and nfx[el].count(":") == 1:
-                    nf2.append(nfx[el].strip())
+                    if nfx[el].strip() not in nf:
+                        nf.append(nfx[el].strip())
+            gr = composition(pathfy(values['_gr1_']), pathfy(values['_gr2_']), values['_sname_'], 0)
+            refusion(gr, values['_sname_'], nf, 1)
 
-            no_f = [nf1, nf2]
-            fusion2(ptg1, ptg2, values['_sname_'], no_f, 1)
+        elif values['_gr1_'].count("/") > 0 and values['_gr2_'].count("/") == 0:                                        # primo grafo
 
+            nfx = values['_fn1_'].split("\n")
+            for el in range(nfx.__len__()):
+                if nfx[el].count("->") == 1 and nfx[el].count(":") == 1:
+                    if nfx[el].strip() not in nf:
+                        nf.append(nfx[el].strip())
+
+            st = []
+            st = dot_not_struct(pathfy(values['_gr1_']), values['_sname_'], st, 0)
+            refusion(st, values['_sname_'], nf, 1)
+
+        elif values['_gr2_'].count("/") > 0 and values['_gr1_'].count("/") == 0:                                        # secondo grafo
+
+            nfx = values['_fn2_'].split("\n")
+            for el in range(nfx.__len__()):
+                if nfx[el].count("->") == 1 and nfx[el].count(":") == 1:
+                    if nfx[el].strip() not in nf:
+                        nf.append(nfx[el].strip())
+
+            st = []
+            dot_not_struct(pathfy(values['_gr2_']), values['_sname_'], st, 0)
+            refusion(st, values['_sname_'], nf, 1)
 
 execute()

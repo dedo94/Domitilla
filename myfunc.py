@@ -114,8 +114,8 @@ def prec_node(graph, node_ist):                                                 
 def max_id(str_gr):
     max = 0
     for x in range(str_gr.__len__()):
-        if str_gr[x].id > max:
-            max = str_gr[x].id
+        if int(str_gr[x].id) > max:
+            max = int(str_gr[x].id)
     max += 1
     return max
 
@@ -133,3 +133,10 @@ def find_pos(gr, id):
     for el in range(gr.__len__()):
         if gr[el].id == id:
             return el
+
+
+'''
+A -> H : m 
+K -> B : m
+
+'''

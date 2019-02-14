@@ -1,14 +1,19 @@
 # file contentente tutte le funzioni di supporto
 import random
+from myfunc import *
 
 
-class Node:                                                                                                             # mi permette di schematizzare un.dot
-    def __init__(self, id, label, *nxt_node):
+class Petri:
+    def __init__(self, id, t_in, t_out):
         self.id = id
-        self.label = label
-        self.next_node = []
-        for b in nxt_node:
-            self.next_node.append(b)
+        self.tin = t_in
+        self.tout = t_out
+
+
+def id_to_pos(str_gr, id_node):                                                                                         # data un struttura e un id
+    for x in range(str_gr.__len__()):                                                                                   # restituisce la posizione del
+        if str(str_gr[x].id) == str(id_node):                                                                           # nodo al suoi interno
+            return x                                                                                                    # se presente
 
 
 def rv():                                                                                                               # genera un valore casuale tra 50 e 500
@@ -29,14 +34,14 @@ def st_print_all(struct):                                                       
         # print(str(elem) + ".")
         print("\n")
         print("id: " + str(struct[elem].id))
-        print("label: " + str(struct[elem].label))
+        print("label: " + str(struct[elem].id))
         print("next: " + str(struct[elem].next_node))
 
 
 def st_print_node(struct, n):                                                                                           # mi permette di stampare la struttura di un nodo dato
         i = search_node(struct, n)
         print("id: " + str(struct[i].id))
-        print("label: " + str(struct[i].label))
+        print("label: " + str(struct[i].id))
         print("next: " + str(struct[i].next_node))
 
 
@@ -66,20 +71,24 @@ def to_struct(graph, gr_node):                                                  
             if label.__len__() == 0 and line.find("shape=circle") > 0:
                 label = "start"
 
-            gr_node.append(Node(at, label))
+            gr_node.append(node(at, label))
     file.close()
     return gr_node
 
 
 def what_im(gr_st, node):                                                                                               # mi permette di capire cos'è il nodo
-    node = search_node(gr_st, node)
-    if node >= gr_st.__len__():
+    id = node
+    pos = search_node(gr_st, node)
+    if pos >= gr_st.__len__():
         return None
     else:
-        ist = gr_st[node].label  # istruzioni dei next node
-        n_next = gr_st[node].next_node.__len__()
+        ist = gr_st[pos].ist                                                                                         # istruzioni dei next node
+        n_next = gr_st[pos].next_node.__len__()
         if ist == "+":
-            if n_next > 1:
+            prd = pred(gr_st, id)
+            if prd.__len__() == 1 and n_next == 1:
+                im = "transition choice"
+            elif n_next > 1:
                 im = "open choice"
             else:
                 im = "close choice"

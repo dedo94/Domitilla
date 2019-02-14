@@ -1,5 +1,5 @@
 from dottogr import *
-from strtogr import *
+from function import *
 
 
 def composition(gr1, gr2, name, draw):
@@ -40,82 +40,72 @@ def composition(gr1, gr2, name, draw):
 
     if draw:
         draw_graph(fus_str, name)
-    else:
-        return fus_str
+
+    return fus_str
 
 
-def fusion2(g1, g2, nome, node_fusion, draw):
-    fus_str = composition(g1, g2, nome, 0)
-    nd1 = node_fusion[0]
-    nd2 = node_fusion[1]
-    maxid = max_id(fus_str)                                                                                             # max id utilizzato nella prima struttura
-    fus_list = []
-    for i in range(nd1.__len__()):                                                                                      # per ogni primo nodo
-        x1 = ist_to_pos(fus_str, nd1[i])
-        for n in range(nd2.__len__()):                                                                                  # ciclo i secondi nodi
-            for e in range(fus_str.__len__()):
-                if nd2[n] == fus_str[e].ist:                                                                            # quelli che hanno lo stesso messaggio
-                    x2 = fus_str[e].id
-                    a = [x1, x2]                                                                                        # verranno inseriti in una lista a coppie
-                    fus_list.append(a)
+def refusion(gr_st, nome, node_fus, draw):
+    name = nome + ".dot"
+    totcpid = []
+    for i in range(gr_st.__len__()):
+        for t in range(node_fus.__len__()):
+            if gr_st[i].ist == node_fus[t]:
+                for j in range(i, gr_st.__len__()):
+                    for r in range(node_fus.__len__()):
+                        if gr_st[j].ist == node_fus[r] and gr_st[i].ist != gr_st[j].ist:
+                            cpid = [int(gr_st[i].id), int(gr_st[j].id)]
+                            totcpid.append(cpid)
+    maxid = max_id(gr_st)                                                                                               # max id utilizzato nella prima struttura
+    check = []
+    opchid = []
+    clchid = []
+    fus_st = []
+    for el in range(totcpid.__len__()):
+        pos1 = id_to_pos(gr_st, totcpid[el][0])
+        pos2 = id_to_pos(gr_st, totcpid[el][1])
+        tmpplop = maxid
+        fus_st.append(node(maxid, "|", maxid + 1))
+        maxid += 1
+        newist = gr_st[pos1].snd + " -> " + gr_st[pos2].recv + " : " + gr_st[pos2].msg
+        fus_st.append(node(maxid, newist, maxid + 1))
+        maxid += 1
+        fus_st.append(node(maxid, "|"))
+        tmpplcl = maxid
+        maxid += 1
 
-    spider = []                                                                                                         # array contenente la futura struttura di fusione
-    ap = maxid + 1                                                                                                      # aperti paralleli
-    it = ap + fus_list.__len__()                                                                                        # istruzioni
-    cp = it + fus_list.__len__()                                                                                        # chiusi paralleli
-    cc = cp + fus_list.__len__()                                                                                        # chiusi choice
-    modnode = []                                                                                                        # traccia i nodi usati in apertura
-    modnode2 = []                                                                                                       # traccia i nodi usati in chiusura
-
-    for i in range(fus_list.__len__()):                                                                                 # ciclo tutte le coppie di fusione
-        an = fus_list[i][0]                                                                                             # primo nodo
-        bn = fus_list[i][1]                                                                                             # secondo nodo
-
-        if an not in modnode:                                                                                           # se an non è ancora stato anlaizzato in apertura
-            modnode.append(an)                                                                                          # lo aggungo alla lista
-            spider.append(node(fus_str[find_pos(fus_str, an)].id, "+", ap))                                             # lo aggungo alla lista
+        if totcpid[el][0] not in check:                                                                                 # analizzo primo nodo della coppia, se nuovo
+            check.append(totcpid[el][0])                                                                                # lo agungo alla lista "check"
+            fus_st.append(node(totcpid[el][0], "+", tmpplop))                                                           # gli creo il nodo + di inizio e lo collego
+            opchid.append(totcpid[el][0])                                                                               # aggiungo il suo id alla lista opchid
+            fus_st.append(node(maxid, "+", gr_st[id_to_pos(gr_st, totcpid[el][0])].next_node[0]))                       # gli creo il nodo + di fine e lo collego
+            clchid.append(maxid)                                                                                        # aggiungo il suo id alla lista clchid
+            fus_st[id_to_pos(fus_st, tmpplcl)].next_node.append(maxid)
+            maxid += 1
         else:
-            spider[find_pos(spider, an)].next_node.append(ap)                                                           # altrimenti gli aggiungo successori
+            fus_st[id_to_pos(fus_st, totcpid[el][0])].next_node.append(tmpplop)                                         # connetto il + di inizio con il | di inizio
+            i = check.index(totcpid[el][0])
+            fus_st[id_to_pos(fus_st, tmpplcl)].next_node.append(clchid[i])                                              # connetto il | finale con il + di chiusura
 
-        if bn not in modnode:                                                                                           # uguale ad an
-            modnode.append(bn)
-            spider.append(node(fus_str[find_pos(fus_str, bn)].id, "+", ap))
+        if totcpid[el][1] not in check:                                                                                 # ripeto per il secondo nodo della coppia
+            check.append(totcpid[el][1])
+            fus_st.append(node(totcpid[el][1], "+", tmpplop))
+            opchid.append(totcpid[el][1])
+            fus_st.append(node(maxid, "+", gr_st[id_to_pos(gr_st, totcpid[el][1])].next_node[0]))
+            clchid.append(maxid)
+            fus_st[id_to_pos(fus_st, tmpplcl)].next_node.append(maxid)
+            maxid += 1
         else:
-            spider[find_pos(spider, bn)].next_node.append(ap)
+            fus_st[id_to_pos(fus_st, totcpid[el][1])].next_node.append(tmpplop)
+            i = check.index(totcpid[el][1])
+            fus_st[id_to_pos(fus_st, tmpplcl)].next_node.append(clchid[i])
 
-        spider.append(node(ap, "|", it))                                                                                # creo il nodo di apertura parallelo
-        ap += 1
-        new_ist = fus_str[find_pos(fus_str, an)].snd + " -> " + fus_str[find_pos(fus_str, bn)].recv\
-                  + " : " + fus_str[find_pos(fus_str, bn)].msg
-        spider.append(node(it, new_ist, cp))                                                                            # creo il nodo di istruzione
-        it += 1
-        spider.append(node(cp, "|"))                                                                                    # creo il nodo di chiusura parallelo
-        cp += 1
-        tmp = spider.__len__()
+    final_st = []
+    for ele in range(gr_st.__len__()):
+        if int(gr_st[ele].id) not in check:
+            final_st.append(gr_st[ele])
 
-        if an not in modnode2:                                                                                          # se an non è ancora stato anlaizzato in chiusura
-            modnode2.append(an)                                                                                         # lo aggungo alla lista
-            spider[tmp - 1].next_node.append(cc)                                                                        # connetto il precedente nodo
-            spider.append(node(cc, "+", fus_str[find_pos(fus_str, bn)].next_node[0]))                                   # lo aggungo alla lista
-            cc += 1
-        else:
-            spider[tmp - 1].next_node.append(fus_str[find_pos(fus_str, bn)].next_node[0])                               # altrimenti gli aggiungo successori
-
-        if bn not in modnode2:                                                                                          # uguale ad an
-            modnode2.append(bn)
-            spider[tmp - 1].next_node.append(cc)
-            spider.append(node(cc, "+", fus_str[find_pos(fus_str, an)].next_node[0]))
-            cc += 1
-        else:
-            spider[tmp - 1].next_node.append(fus_str[find_pos(fus_str, an)].next_node[0])
-
-    final = []                                                                                                          # struttura finale
-    for nod in range(fus_str.__len__()):                                                                                # ci copio tutti i nodi tranne quelli che ho fuso
-        if fus_str[nod].ist not in nd1 and fus_str[nod].ist not in nd2:
-            final.append(fus_str[nod])
-
-    for nod in range(spider.__len__()):                                                                                 # aggiungo anche spider
-        final.append(spider[nod])
+    for elm in range(fus_st.__len__()):
+        final_st.append(fus_st[elm])
 
     if draw:
-        draw_graph(final, nome + ".dot")
+        draw_graph(final_st, name)
