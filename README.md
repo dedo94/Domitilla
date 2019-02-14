@@ -7,7 +7,7 @@ LIBRERIE NECESSARIE:
   
 UTILIZZO:
 
-  Per avviare il programma recarsi nella cartella da terminale e utilizzare il comando "python3 guy.py".
+  Per avviare il programma recarsi nella cartella da terminale e utilizzare il comando "python3 gui.py".
   
   Cosa fanno i bottoni?
   
@@ -30,7 +30,7 @@ UTILIZZO:
   quelli non strutturati sono in formato .dot
   
   N.B.: sfortunatamente ogni volta che viene portata a termine un'operazione è necessario rieseguire il comando 
-  "python3 guy.py" da terminale.
+  "python3 gui.py" da terminale.
 
 
 NOTE:
