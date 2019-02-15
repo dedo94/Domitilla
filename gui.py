@@ -65,7 +65,6 @@ def execute():
         if values['_gr1_'].count("/") > 0:
             drstr1 = []
             if values['_r1_'] is True:
-                # petri_net(pathfy(values['_gr1_']), "petri1", drstr1, path)
                 petri2(pathfy(values['_gr1_']), "petri1", drstr1, path)
             else:
                 print("Please insert unstructured graph")
@@ -73,7 +72,7 @@ def execute():
         if values['_gr2_'].count("/") > 0:
             drstr2 = []
             if values['_r2_'] is True:
-                petri_net(pathfy(values['_gr2_']), "petri2", drstr2, path)
+                petri2(pathfy(values['_gr2_']), "petri2", drstr2, path)
             else:
                 print("Please insert unstructured graph")
 
@@ -121,5 +120,6 @@ def execute():
             st = []
             dot_not_struct(pathfy(values['_gr2_']), values['_sname_'], st, 0)
             refusion(st, values['_sname_'], nf, 1)
+
 
 execute()

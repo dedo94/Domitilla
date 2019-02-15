@@ -3,6 +3,30 @@ import random
 from myfunc import *
 
 
+class Petri2:
+    def __init__(self, id, im, trans, place, pin, *ist):
+        self.id = id
+        self.im = im
+        self.tr = []
+        self.pla = []
+        self.p_in = []
+        self.ist = []
+        for h in range(trans.__len__()):
+            self.tr.append(int(trans[h]))
+        for i in ist:
+            self.ist = i
+        for k in range(place.__len__()):
+            self.pla.append(int(place[k]))
+        for j in range(pin.__len__()):
+            self.p_in.append(int(pin[j]))
+
+
+def petripos(petri_str, id):
+    for el in range(petri_str.__len__()):
+        if str(petri_str[el].id) == str(id):
+            return el
+
+
 class Petri:
     def __init__(self, id, t_in, t_out):
         self.id = id
@@ -34,14 +58,14 @@ def st_print_all(struct):                                                       
         # print(str(elem) + ".")
         print("\n")
         print("id: " + str(struct[elem].id))
-        print("label: " + str(struct[elem].id))
+        print("label: " + str(struct[elem].ist))
         print("next: " + str(struct[elem].next_node))
 
 
 def st_print_node(struct, n):                                                                                           # mi permette di stampare la struttura di un nodo dato
         i = search_node(struct, n)
         print("id: " + str(struct[i].id))
-        print("label: " + str(struct[i].id))
+        print("label: " + str(struct[i].ist))
         print("next: " + str(struct[i].next_node))
 
 

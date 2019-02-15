@@ -2,160 +2,175 @@
 from function import *
 
 
-nomi = ["ch1", "ch2", "pl1", "fus_str_err"]
-r = 3
-
-
-def petri_net(path, nome_grafo, gr_str, save):
-    to_struct(path, gr_str)                                                                                             # genero a struttura
+def petri2(path, nome_grafo, gr_str, save):
+    to_struct(path, gr_str)                                                                                             # genero la struttura
     namefile = nome_grafo
-    ord_vis = []                                                                                                        # array per l'ordine di visita (id)
-    order3(gr_str, ord_vis, 0, 0)                                                                                       # genero l'ordine di visita
+    petri_st = []
     writetxt = []                                                                                                       # array che contiene le stringhe per scrivere .ndr
-    p_count = 0                                                                                                         # contatore piazze
-    t_count = 0                                                                                                         # contatore transizioni
-    token = 1                                                                                                           # token
-    t_list = []
-    p_list = []
-    y_coord = 50
-    for d in range(ord_vis.__len__()):
-        x_coord = 50
-        nodo_now = ord_vis[d]                                                                                           # nodo da analizzare
-        r_n_n = search_node(gr_str, nodo_now)                                                                           # dove nodo_now si trova in gr_str
-        cost = check_situation(gr_str, nodo_now)
-        if what_im(gr_str, nodo_now) == "start":                                                                        # se è start
-            p_list.append(p_count)
-            string = "p " + str(x_coord) + " " + str(y_coord) + ".0 p" + str(p_list[-1]) + " " + str(token) + " " + cost     # riempo la stringa con una paizza
-            y_coord += 50
-            p_count += 1
-            token *= 0
-            writetxt.append(string)                                                                                     # e la salvo nell'array
+    p_c = 0
+    t_c = 0
+    for t in range(gr_str.__len__()):                                                                                   # creo prima la struttura semivuota
+        petri_st.append(Petri2(gr_str[t].id, what_im(gr_str, gr_str[t].id), [], [], [], gr_str[t].ist))
 
-        elif what_im(gr_str, nodo_now) == "istruction":                                                                 # se è un istruzione
-            t_list.append(t_count)
-            string = "t " + str(x_coord) + " " + str(y_coord) + " t" + str(t_list[-1]) + \
-                     " c 0 w n {" + str(gr_str[r_n_n].label) + "} e"                                                    # riempo la stringa con una transizione
-            y_coord += 50
-            x_coord += 100
-            t_count += 1
-            writetxt.append(string)
+    for el in range(gr_str.__len__()):                                                                                  # la vado poi ad arricchire
 
-            string = "e p" + str(p_list.pop(0)) + " t" + str(t_list[0]) + " 1 n"                                        # riempo la stringa con un arco
-            writetxt.append(string)                                                                                     # e la salvo nell'array
+        if what_im(gr_str, gr_str[el].id) == "start":
+            petri_st[el].pla.append(p_c)
+            pos = petripos(petri_st, gr_str[el].next_node[0])
+            petri_st[pos].p_in.append(p_c)
+            p_c += 1
 
-            p_list.append(p_count)
-            string = "p " + str(x_coord) + " " + str(y_coord) + " p" + str(p_list[-1]) + " " + str(token) + " " + cost          # riempo la stringa con una paizza
-            y_coord += 50
-            x_coord += 100
-            p_count += 1
-            token *= 0
-            writetxt.append(string)                                                                                     # e la salvo nell'array
+        elif what_im(gr_str, gr_str[el].id) == "istruction" or what_im(gr_str, gr_str[el].id) == "transition choice":
+            petri_st[el].tr.append(t_c)
+            t_c += 1
+            petri_st[el].pla.append(p_c)
+            pos = petripos(petri_st, gr_str[el].next_node[0])
+            petri_st[pos].p_in.append(p_c)
+            p_c += 1
 
-            string = "e t" + str(t_list.pop(0)) + " p" + str(p_list[-1]) + " 1 n"                                       # riempo la stringa con un arco
-            writetxt.append(string)                                                                                     # e la salvo nell'array
+        elif what_im(gr_str, gr_str[el].id) == "open choice":
 
-        elif what_im(gr_str, nodo_now) == "open choice":                                                                # se l'inizio di un choice
-            tmp_p = str(p_list.pop(0))
-            y_coord += 50
-            x_coord += 100
-            for el in range(gr_str[r_n_n].next_node.__len__()):
-                t_list.append(t_count)
-                string = "t " + str(x_coord) + " " + str(y_coord) + " t" + str(t_list[-1]) + " 0 w n"                   # riempo la stringa con una transizione
-                t_count += 1
-                y_coord += 50
-                x_coord += 100
-                writetxt.append(string)                                                                                 # e la salvo nell'array
+            for n in range(gr_str[el].next_node.__len__()):
+                petri_st[el].tr.append(t_c)
+                t_c += 1
+                petri_st[el].pla.append(p_c)
+                pos = petripos(petri_st, gr_str[el].next_node[n])
+                petri_st[pos].p_in.append(p_c)
+                p_c += 1
 
-                string = "e p" + tmp_p + " t" + str(t_list[0]) + " 1 n"                                                 # riempo la stringa con un arco
-                writetxt.append(string)                                                                                 # e la salvo nell'array
+        elif what_im(gr_str, gr_str[el].id) == "close choice":
+            petri_st[el].tr.append(t_c)
+            t_c += 1
+            petri_st[el].tr.append(t_c)
+            t_c += 1
+            petri_st[el].pla.append(p_c)
+            pos = petripos(petri_st, gr_str[el].next_node[0])
+            petri_st[pos].p_in.append(p_c)
+            p_c += 1
 
-                p_list.append(p_count)
-                string = "p " + str(x_coord) + " " + str(y_coord) + " p" + str(p_list[-1]) + " " + str(token) + " " + cost      # riempo la stringa con una paizza
-                y_coord += 50
-                x_coord += 100
-                p_count += 1
-                token *= 0
-                writetxt.append(string)                                                                                 # e la salvo nell'array
+        elif what_im(gr_str, gr_str[el].id) == "open parallel":
+            petri_st[el].tr.append(t_c)
+            t_c += 1
 
-                string = "e t" + str(t_list.pop(0)) + " p" + str(p_list[-1]) + " 1 n"                                   # riempo la stringa con un arco
-                writetxt.append(string)                                                                                 # e la salvo nell'array
+            for n in range(gr_str[el].next_node.__len__()):
+                petri_st[el].pla.append(p_c)
+                pos = petripos(petri_st, gr_str[el].next_node[n])
+                petri_st[pos].p_in.append(p_c)
+                p_c += 1
 
-        elif what_im(gr_str, nodo_now) == "open parallel":                                                              # se l'inizio di un parallelo
-            t_list.append(t_count)
-            string = "t " + str(x_coord) + " " + str(y_coord) + " t" + str(t_list[-1]) + " 0 w n"                       # riempo la stringa con una transizione
-            t_count += 1
-            y_coord += 50
-            x_coord += 100
-            writetxt.append(string)                                                                                     # e la salvo nell'array
-            tmp_t = str(t_list.pop(0))
+        elif what_im(gr_str, gr_str[el].id) == "close parallel":
+            petri_st[el].tr.append(t_c)
+            t_c += 1
+            petri_st[el].pla.append(p_c)
+            pos = petripos(petri_st, gr_str[el].next_node[0])
+            petri_st[pos].p_in.append(p_c)
+            p_c += 1
 
-            string = "e p" + str(p_list.pop(0)) + " t" + tmp_t + " 1 n"                                                 # riempo la stringa con un arco
-            writetxt.append(string)                                                                                     # e la salvo nell'array
+    y_c = 100
 
-            for el in range(gr_str[r_n_n].next_node.__len__()):
-                p_list.append(p_count)
-                string = "p " + str(x_coord) + " " + str(y_coord) + " p" + str(p_list[-1]) + " " + str(token) + " " + cost      # riempo la stringa con una paizza
-                y_coord += 50
-                x_coord += 100
-                p_count += 1
-                token *= 0
-                writetxt.append(string)                                                                                 # e la salvo nell'array
+    for x in range(petri_st.__len__()):                                                                                 # terminata la struttura procedo al disegno
+        x_c = 100
 
-                string = "e t" + tmp_t + " p" + str(p_list[-1]) + " 1 n"                                                # riempo la stringa con un arco
-                writetxt.append(string)                                                                                 # e la salvo nell'array
+        if petri_st[x].im == "start":
+            write = "p " + str(x_c) + ".0 " + str(y_c) + ".0 p" + str(petri_st[x].pla[0]) + " 1 n"
+            y_c += 50
+            writetxt.append(write)
 
-        elif what_im(gr_str, nodo_now) == "close choice":                                                               # se la fine di un choice o di un parallelo
+        elif petri_st[x].im == "open parallel":
+            write = "t " + str(x_c) + ".0 " + str(y_c) + ".0 t" + str(petri_st[x].tr[0]) + " 0 w n"
+            y_c += 50
+            writetxt.append(write)
+            write = "e p" + str(petri_st[x].p_in[0]) + " t" + str(petri_st[x].tr[0]) + " 1 n"
+            writetxt.append(write)
 
-            p_list.append(p_count)
-            string = "p " + str(x_coord) + " " + str(y_coord) + " p" + str(p_list[-1]) + " " + str(token) + " " + cost  # riempo la stringa con una paizza
-            y_coord += 50
-            x_coord += 100
-            p_count += 1
-            token *= 0
-            writetxt.append(string)                                                                                     # e la salvo nell'array
+            for i in range(petri_st[x].pla.__len__()):
+                write = "p " + str(x_c) + ".0 " + str(y_c) + ".0 p" + str(petri_st[x].pla[i]) + " 0 n"
+                writetxt.append(write)
+                write = "e t" + str(petri_st[x].tr[0]) + " p" + str(petri_st[x].pla[i]) + " 1 n"
+                writetxt.append(write)
+                x_c += 200
+            y_c += 50
 
-            list_prec = pred(gr_str, nodo_now)
-            for elem in range(list_prec.__len__()):
-                t_list.append(t_count)
-                string = "t " + str(x_coord) + " " + str(y_coord) + " t" + str(t_list[-1]) + " 0 w n"                   # riempo la stringa con una transizione
-                y_coord += 50
-                x_coord += 100
-                t_count += 1
-                writetxt.append(string)                                                                                 # e la salvo nell'array
+        elif petri_st[x].im == "istruction":
+            print(petri_st[x].id)
+            print(petri_st[x].im)
+            write = "t " + str(x_c) + ".0 " + str(y_c) + ".0 t" + str(petri_st[x].tr[0]) + \
+                    " c 0 w n {" + str(petri_st[x].ist) + "} e"
+            y_c += 50
+            writetxt.append(write)
+            write = "e p" + str(petri_st[x].p_in[0]) + " t" + str(petri_st[x].tr[0]) + " 1 n"
+            writetxt.append(write)
+            write = "p " + str(x_c) + ".0 " + str(y_c) + ".0 p" + str(petri_st[x].pla[0]) + " 0 n"
+            writetxt.append(write)
+            y_c += 50
+            write = "e t" + str(petri_st[x].tr[0]) + " p" + str(petri_st[x].pla[0]) + " 1 n"
+            writetxt.append(write)
 
-                string = "e p" + str(p_list.pop(0)) + " t" + str(t_list[0]) + " 1 n"                                    # riempo la stringa con un arco
-                writetxt.append(string)                                                                                 # e la salvo nell'array
+        elif petri_st[x].im == "open choice":
 
-                string = "e t" + str(t_list.pop(0)) + " p" + str(p_list[-1]) + " 1 n"                                   # riempo la stringa con un arco
-                writetxt.append(string)                                                                                 # e la salvo nell'array
+            for el in range(petri_st[x].tr.__len__()):
+                write = "t " + str(x_c) + ".0 " + str(y_c) + ".0 t" + str(petri_st[x].tr[el]) + " 0 w n"
+                y_c += 50
+                writetxt.append(write)
+                write = "e p" + str(petri_st[x].p_in[0]) + " t" + str(petri_st[x].tr[el]) + " 1 n"
+                writetxt.append(write)
+                write = "p " + str(x_c) + ".0 " + str(y_c) + ".0 p" + str(petri_st[x].pla[el]) + " 0 n"
+                y_c += 50
+                writetxt.append(write)
+                write = "e t" + str(petri_st[x].tr[el]) + " p" + str(petri_st[x].pla[el]) + " 1 n"
+                writetxt.append(write)
+                x_c += 200
 
-        elif what_im(gr_str, nodo_now) == "close parallel":                                                             # se la fine di un choice o di un parallelo
-            t_list.append(t_count)
-            string = "t " + str(x_coord) + " " + str(y_coord) + " t" + str(t_list[-1]) + " 0 w n"                       # riempo la stringa con una transizione
-            t_count += 1
-            y_coord += 50
-            x_coord += 100
-            writetxt.append(string)                                                                                     # e la salvo nell'array
+        elif petri_st[x].im == "transition choice":
+            write = "t " + str(x_c) + ".0 " + str(y_c) + ".0 t" + str(petri_st[x].tr[0]) + " 0 w n"
+            y_c += 50
+            writetxt.append(write)
+            write = "e p" + str(petri_st[x].p_in[0]) + " t" + str(petri_st[x].tr[0]) + " 1 n"
+            writetxt.append(write)
+            write = "p " + str(x_c) + ".0 " + str(y_c) + ".0 p" + str(petri_st[x].pla[0]) + " 0 n"
+            writetxt.append(write)
+            y_c += 50
+            write = "e t" + str(petri_st[x].tr[0]) + " p" + str(petri_st[x].pla[0]) + " 1 n"
+            writetxt.append(write)
 
-            list_prec = pred(gr_str, nodo_now)
-            for elem in range(list_prec.__len__()):
-                string = "e p" + str(p_list.pop(0)) + " t" + str(t_list[0]) + " 1 n"                                    # riempo la stringa con un arco
-                writetxt.append(string)                                                                                 # e la salvo nell'array
+        elif petri_st[x].im == "close choice":
+            write = "p " + str(x_c) + ".0 " + str(y_c) + ".0 p" + str(petri_st[x].pla[0]) + " 0 n"
+            writetxt.append(write)
+            y_c += 50
 
-            p_list.append(p_count)
-            string = "p " + str(x_coord) + " " + str(y_coord) + " p" + str(p_list[-1]) + " " + str(token) + " " + cost          # riempo la stringa con una paizza
-            y_coord += 50
-            x_coord += 100
-            p_count += 1
-            token *= 0
-            writetxt.append(string)                                                                                     # e la salvo nell'array
+            for el in range(petri_st[x].tr.__len__()):
+                write = "t " + str(x_c) + ".0 " + str(y_c) + ".0 t" + str(petri_st[x].tr[el]) + " 0 w n"
+                y_c += 50
+                writetxt.append(write)
+                write = "e p" + str(petri_st[x].p_in[el]) + " t" + str(petri_st[x].tr[el]) + " 1 n"
+                writetxt.append(write)
+                write = "e t" + str(petri_st[x].tr[el]) + " p" + str(petri_st[x].pla[0]) + " 1 n"
+                writetxt.append(write)
 
-            string = "e t" + str(t_list.pop(0)) + " p" + str(p_list[-1]) + " 1 n"                                       # riempo la stringa con un arco
-            writetxt.append(string)                                                                                     # e la salvo nell'array
+        elif petri_st[x].im == "close parallel":
+            write = "t " + str(x_c) + ".0 " + str(y_c) + ".0 t" + str(petri_st[x].tr[0]) + " 0 w n"
+            y_c += 50
+            writetxt.append(write)
+            write = "p " + str(x_c) + ".0 " + str(y_c) + ".0 p" + str(petri_st[x].pla[0]) + " 0 n"
+            writetxt.append(write)
+            y_c += 50
+            write = "e t" + str(petri_st[x].tr[0]) + " p" + str(petri_st[x].pla[0]) + " 1 n"
+            writetxt.append(write)
 
-    string = "h " + namefile                                                                                            # riempo la stringa con il nome del file
-    writetxt.append(string)                                                                                             # e la salvo nell'array
-    new_ndr = open(save + "/" +  namefile + ".ndr", "w")                                                                # creo un nuovo file
-    for elem in range(writetxt.__len__()):                                                                              # scrivo gli elementi dell'array
-        new_ndr.write(writetxt[elem] + "\n")
-    new_ndr.close()                                                                                                     # chiudo il file
+            for el in range(petri_st[x].p_in.__len__()):
+                write = "e p" + str(petri_st[x].p_in[el]) + " t" + str(petri_st[x].tr[0]) + " 1 n"
+                writetxt.append(write)
+
+    write = "h " + namefile
+    writetxt.append(write)
+    new_ndr = open(save + "/" + namefile + ".ndr", "w")
+
+    for elem in range(writetxt.__len__()):
+        if writetxt[elem][0] != "e":
+            new_ndr.write(writetxt[elem] + "\n")
+    for elem in range(writetxt.__len__()):
+        if writetxt[elem][0] == "e":
+            new_ndr.write(writetxt[elem] + "\n")
+
+    new_ndr.close()
+
