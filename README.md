@@ -1,4 +1,4 @@
-# Tirocinio GUI
+# Domitlla: tool per l'elaborazione di Unstructured Global Graph
 
 LIBRERIE NECESSARIE:
   - Graphviz
