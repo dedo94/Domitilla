@@ -19,15 +19,14 @@ def execute():
         [sg.Text('_' * 65)],
         [sg.Text("FIRST GRAPH:", size=(20, 1)), sg.Radio('Unstructured', "R1", default=True, key='_r1_'),
          sg.Radio('Structured', "R1")],
-        [sg.Text("Insert fusion node here. Every line MUST contain one node.", size=(60, 1))],
-        [sg.Multiline(size=(60, 3), key='_fn1_')],
         [sg.Text("Select graph", size=(45, 1)), sg.FileBrowse(key='_gr1_')],
         [sg.Text('_' * 65)],
         [sg.Text("SECOND GRAPH:", size=(20, 1)), sg.Radio('Unstructured', "R2", default=True, key='_r2_'),
          sg.Radio('Structured', "R2")],
-        [sg.Text("Insert fusion node here. Every line MUST contain one node.", size=(60, 1))],
-        [sg.Multiline(size=(60, 3), key='_fn2_')],
         [sg.Text("Select graph", size=(45, 1)), sg.FileBrowse(key='_gr2_')],
+        [sg.Text('_' * 65)],
+        [sg.Text("Insert fusion node here. Every line MUST contain one node.", size=(60, 1))],
+        [sg.Multiline(size=(60, 3), key='_fn_')],
         [sg.Text('_' * 65)],
         [sg.Text("Save name:", size=(15, 1)), sg.InputText("Example", key='_sname_')],
         [sg.Submit("Compose", key='_comp_'), sg.Submit("Fuse", key='_fuse_'),
@@ -50,16 +49,16 @@ def execute():
         if values['_gr1_'].count("/") > 0:
             drstr1 = []
             if values['_r1_'] is True:
-                dot_not_struct(pathfy(values['_gr1_']), "draw1", drstr1, 1)
+                dot_not_struct(pathfy(values['_gr1_']), "draw1.gv", drstr1, 1)
             else:
-                struct_gr(pathfy(values['_gr1_']), "draw1", drstr1, 1)
+                struct_gr(pathfy(values['_gr1_']), "draw1.gv", drstr1, 1)
 
         if values['_gr2_'].count("/") > 0:
             drstr2 = []
             if values['_r2_'] is True:
-                dot_not_struct(pathfy(values['_gr2_']), "draw2", drstr2, 1)
+                dot_not_struct(pathfy(values['_gr2_']), "draw2.gv", drstr2, 1)
             else:
-                struct_gr(pathfy(values['_gr2_']), "draw2", drstr2, 1)
+                struct_gr(pathfy(values['_gr2_']), "draw2.gv", drstr2, 1)
 
     elif button == "_petri_":
         if values['_gr1_'].count("/") > 0:
@@ -83,13 +82,7 @@ def execute():
         nf = []
         if values['_gr1_'].count("/") > 0 and values['_gr2_'].count("/") > 0:
 
-            nfx = values['_fn1_'].split("\n")
-            for el in range(nfx.__len__()):
-                if nfx[el].count("->") == 1 and nfx[el].count(":") == 1:
-                    if nfx[el].strip() not in nf:
-                        nf.append(nfx[el].strip())
-
-            nfx = values['_fn2_'].split("\n")
+            nfx = values['_fn_'].split("\n")
             for el in range(nfx.__len__()):
                 if nfx[el].count("->") == 1 and nfx[el].count(":") == 1:
                     if nfx[el].strip() not in nf:

@@ -92,8 +92,6 @@ def petri2(path, nome_grafo, gr_str, save):
             y_c += 50
 
         elif petri_st[x].im == "istruction":
-            print(petri_st[x].id)
-            print(petri_st[x].im)
             write = "t " + str(x_c) + ".0 " + str(y_c) + ".0 t" + str(petri_st[x].tr[0]) + \
                     " c 0 w n {" + str(petri_st[x].ist) + "} e"
             y_c += 50

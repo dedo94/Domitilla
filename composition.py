@@ -3,7 +3,7 @@ from function import *
 
 
 def composition(gr1, gr2, name, draw):
-    name = name + ".dot"
+    name = name + ".gv"
     str_g1 = []                                                                                                         # struttura primo grafo
     dot_not_struct(gr1, "og1", str_g1, 0)                                                                               # la riempo
     str_g2 = []                                                                                                         # struttura secondo grafo
@@ -45,7 +45,7 @@ def composition(gr1, gr2, name, draw):
 
 
 def refusion(gr_st, nome, node_fus, draw):
-    name = nome + ".dot"
+    name = nome + ".gv"
     totcpid = []
     for i in range(gr_st.__len__()):
         for t in range(node_fus.__len__()):
