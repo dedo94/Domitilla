@@ -34,12 +34,6 @@ class Petri:
         self.tout = t_out
 
 
-def id_to_pos(str_gr, id_node):                                                                                         # data un struttura e un id
-    for x in range(str_gr.__len__()):                                                                                   # restituisce la posizione del
-        if str(str_gr[x].id) == str(id_node):                                                                           # nodo al suoi interno
-            return x                                                                                                    # se presente
-
-
 def rv():                                                                                                               # genera un valore casuale tra 50 e 500
     x = random.randint(50, 500)
     x = str(x)

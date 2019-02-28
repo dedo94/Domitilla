@@ -133,10 +133,3 @@ def find_pos(gr, id):
     for el in range(gr.__len__()):
         if gr[el].id == id:
             return el
-
-
-'''
-A -> H : m 
-K -> B : m
-
-'''

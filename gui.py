@@ -25,7 +25,8 @@ def execute():
          sg.Radio('Structured', "R2")],
         [sg.Text("Select graph", size=(45, 1)), sg.FileBrowse(key='_gr2_')],
         [sg.Text('_' * 65)],
-        [sg.Text("Insert fusion node here. Every line MUST contain one node.", size=(60, 1))],
+        [sg.Text("Insert each pair of nodes in a different row.", size=(60, 1))],
+        [sg.Text("Example: A -> H : m ; K -> B : m", size=(60, 1))],
         [sg.Multiline(size=(60, 3), key='_fn_')],
         [sg.Text('_' * 65)],
         [sg.Text("Save name:", size=(15, 1)), sg.InputText("Example", key='_sname_')],
@@ -79,37 +80,27 @@ def execute():
             composition(pathfy(values['_gr1_']), pathfy(values['_gr2_']), values['_sname_'], 1)
 
     elif button == "_fuse_":
-        nf = []
-        if values['_gr1_'].count("/") > 0 and values['_gr2_'].count("/") > 0:
+        nf = []                                                                                                         # lista con le coppie di label da fondere
+        nfline = values['_fn_'].split("\n")
+        for el in range(nfline.__len__()):
+            if nfline[el].count(";"):
+                couple = nfline[el].split(";")
+                a = couple[0].strip()                                                                                   # primo label
+                b = couple[1].strip()                                                                                   # secondo label
+                if a.count("->") == b.count("->") == 1 and a.count(":") == b.count(":") == 1:
+                    cpl = [a, b]                                                                                        # coppia dei label
+                    nf.append(cpl)                                                                                      # la aggiungo alla lista
 
-            nfx = values['_fn_'].split("\n")
-            for el in range(nfx.__len__()):
-                if nfx[el].count("->") == 1 and nfx[el].count(":") == 1:
-                    if nfx[el].strip() not in nf:
-                        nf.append(nfx[el].strip())
+        if values['_gr1_'].count("/") > 0 and values['_gr2_'].count("/") > 0:                                           # compose + fuse
             gr = composition(pathfy(values['_gr1_']), pathfy(values['_gr2_']), values['_sname_'], 0)
             refusion(gr, values['_sname_'], nf, 1)
 
         elif values['_gr1_'].count("/") > 0 and values['_gr2_'].count("/") == 0:                                        # primo grafo
-
-            nfx = values['_fn1_'].split("\n")
-            for el in range(nfx.__len__()):
-                if nfx[el].count("->") == 1 and nfx[el].count(":") == 1:
-                    if nfx[el].strip() not in nf:
-                        nf.append(nfx[el].strip())
-
             st = []
             st = dot_not_struct(pathfy(values['_gr1_']), values['_sname_'], st, 0)
             refusion(st, values['_sname_'], nf, 1)
 
         elif values['_gr2_'].count("/") > 0 and values['_gr1_'].count("/") == 0:                                        # secondo grafo
-
-            nfx = values['_fn2_'].split("\n")
-            for el in range(nfx.__len__()):
-                if nfx[el].count("->") == 1 and nfx[el].count(":") == 1:
-                    if nfx[el].strip() not in nf:
-                        nf.append(nfx[el].strip())
-
             st = []
             dot_not_struct(pathfy(values['_gr2_']), values['_sname_'], st, 0)
             refusion(st, values['_sname_'], nf, 1)
