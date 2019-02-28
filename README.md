@@ -15,7 +15,7 @@ UTILIZZO:
   (e cambiare il nome di salvataggio). Compose meterà in parallelo i due grafi in input e ne restituisce il file DOT
   e il disegno in PDF
   
-  - FUSE: selezionare un grafo tramite i bottone Browse, inserire nodi appartenenti ad esso e che vogliamo fondere.
+  - FUSE: selezionare un grafo tramite i bottone Browse, inserire le coppie di nodi che vogliamo fondere.
   Eseguire questa operazione sia per FIRST GRAPH che SECOND GRAPH nel caso in cui vogliamo eseguire l'operazione su 
   due grafi separati (COMPOSE + FUSE). Altrimenti basta un solo grafo e verranno fusi i nodi al suo interno. 
   (Cambiare il nome di salvataggio).
@@ -31,9 +31,8 @@ UTILIZZO:
   All'interno della cartella grafi sono presenti alcuni esempi di grafo. Quelli strutturati sono in formato .txt mentre
   quelli non strutturati sono in formato DOT (.gv).
   
-  N.B.: sfortunatamente ogni volta che viene portata a termine un'operazione è necessario rieseguire il comando 
-  "python3 gui.py" da terminale.
-
+  N.B.: sfortunatamente ogni volta che viene portata a termine un'operazione Domitilla termina. Per poter continuare a 
+  lavorare con il tool è necessario riavviarlo tramite il comando "python3 gui.py" da terminale.
 
 NOTE:
 
