@@ -45,22 +45,30 @@ def composition(gr1, gr2, name, draw):
 
 
 def refusion(gr_st, nome, node_fus, draw):
-    name = nome + ".gv"
-    nf_id = []                                                                                                          # modifico la lista di nodi di fusione
-    for el in range(node_fus.__len__()):                                                                                # traformando i label in id
-        node1 = node_fus[el][0]
-        node2 = node_fus[el][1]
-        new_cp = [ist_to_id(gr_st, node1), ist_to_id(gr_st, node2)]
-        nf_id.append(new_cp)
-
+    name = nome + ".gv"                                                                                                 # modifico la lista di nodi di fusione
+    nf_id = []                                                                                                          # traformando i label in id
+    pos_list = []                                                                                                       # posizione
+    for el in range(node_fus.__len__()):                                                                                # ciclo le coppie di fusione
+        for g1 in range(gr_st.__len__()):                                                                               # ciclo la struttura
+            if gr_st[g1].ist == node_fus[el][0]:                                                                        # quando trovo il primo nodo
+                for g2 in range(gr_st.__len__()):                                                                       # riciclo la struttura
+                    if gr_st[g2].ist == node_fus[el][1]:                                                                # finche trovo dei match
+                        pos_cp = [g1, g2]
+                        new_cp = [ist_to_id(gr_st, node_fus[el][0]), ist_to_id(gr_st, node_fus[el][1])]                 # creo le coppie
+                        pos_list.append(new_cp)
+                        nf_id.append(pos_cp)                                                                            # e le aggiungo alla lista
+    print(pos_list)
+    print(nf_id)
     maxid = max_id(gr_st)                                                                                               # max id utilizzato nella prima struttura
     check = []
     opchid = []                                                                                                         # open choice id
     clchid = []                                                                                                         # close choice io
     fus_st = []                                                                                                         # struttura spiders
     for el in range(nf_id.__len__()):
-        pos1 = search_node(gr_st, nf_id[el][0])                                                                         # posizione nella struttura del primo id
-        pos2 = search_node(gr_st, nf_id[el][1])                                                                         # posizione nella struttura del secondo id
+        #pos1 = search_node(gr_st, nf_id[el][0])                                                                         # posizione nella struttura del primo id
+        #pos2 = search_node(gr_st, nf_id[el][1])                                                                         # posizione nella struttura del secondo id
+        pos1 = nf_id[el][0]
+        pos2 = nf_id[el][1]
         if gr_st[pos1].msg == gr_st[pos2].msg:                                                                          # controllo abbiano lo stesso messaggio
             tmpplop = maxid                                                                                             # temporary parallel open
             fus_st.append(node(maxid, "|", maxid + 1))
@@ -71,30 +79,30 @@ def refusion(gr_st, nome, node_fus, draw):
             fus_st.append(node(maxid, "|"))
             tmpplcl = maxid                                                                                             #temporary parallel close
             maxid += 1
-            if nf_id[el][0] not in check:                                                                               # analizzo primo nodo della coppia, se nuovo
-                check.append(nf_id[el][0])                                                                              # lo agungo alla lista "check"
-                fus_st.append(node(nf_id[el][0], "+", tmpplop))                                                         # gli creo il nodo + di inizio e lo collego
-                opchid.append(nf_id[el][0])                                                                             # aggiungo il suo id alla lista opchid
-                fus_st.append(node(maxid, "+", gr_st[id_to_pos(gr_st, nf_id[el][0])].next_node[0]))                     # gli creo il nodo + di fine e lo collego
+            if gr_st[nf_id[el][0]].id not in check:                                                                               # analizzo primo nodo della coppia, se nuovo
+                check.append(gr_st[nf_id[el][0]].id)                                                                              # lo agungo alla lista "check"
+                fus_st.append(node(gr_st[nf_id[el][0]].id, "+", tmpplop))                                                         # gli creo il nodo + di inizio e lo collego
+                opchid.append(gr_st[nf_id[el][0]].id)                                                                             # aggiungo il suo id alla lista opchid
+                fus_st.append(node(maxid, "+", gr_st[nf_id[el][0]].next_node[0]))                     # gli creo il nodo + di fine e lo collego
                 clchid.append(maxid)                                                                                    # aggiungo il suo id alla lista clchid
                 fus_st[id_to_pos(fus_st, tmpplcl)].next_node.append(maxid)
                 maxid += 1
             else:
                 fus_st[id_to_pos(fus_st, nf_id[el][0])].next_node.append(tmpplop)                                       # connetto il + di inizio con il | di inizio
-                i = check.index(nf_id[el][0])
+                i = check.index(gr_st[nf_id[el][0]].id)
                 fus_st[id_to_pos(fus_st, tmpplcl)].next_node.append(clchid[i])                                          # connetto il | finale con il + di chiusura
 
             if nf_id[el][1] not in check:                                                                               # ripeto per il secondo nodo della coppia
-                check.append(nf_id[el][1])
-                fus_st.append(node(nf_id[el][1], "+", tmpplop))
-                opchid.append(nf_id[el][1])
-                fus_st.append(node(maxid, "+", gr_st[id_to_pos(gr_st, nf_id[el][1])].next_node[0]))
+                check.append(gr_st[nf_id[el][1]].id)
+                fus_st.append(node(gr_st[nf_id[el][1]].id, "+", tmpplop))
+                opchid.append(gr_st[nf_id[el][1]].id)
+                fus_st.append(node(maxid, "+", gr_st[nf_id[el][1]].next_node[0]))
                 clchid.append(maxid)
                 fus_st[id_to_pos(fus_st, tmpplcl)].next_node.append(maxid)
                 maxid += 1
             else:
-                fus_st[id_to_pos(fus_st, nf_id[el][1])].next_node.append(tmpplop)
-                i = check.index(nf_id[el][1])
+                fus_st[nf_id[el][1]].next_node.append(tmpplop)
+                i = check.index(gr_st[nf_id[el][1]].id)
                 fus_st[id_to_pos(fus_st, tmpplcl)].next_node.append(clchid[i])
     final_st = []
     for ele in range(gr_st.__len__()):
