@@ -22,7 +22,7 @@ Graphviz:
 sudo apt-get install graphviz
 ```
 
-Graphviz:
+PySimpleGUI:
 
 ```
 sudo pip install PySimpleGUI
