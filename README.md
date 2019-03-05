@@ -59,7 +59,11 @@ Quali operazioni svolgono i bottoni?
  quelli non strutturati sono in formato DOT (.gv).
 
  N.B.: sfortunatamente ogni volta che viene portata a termine un'operazione Domitilla termina. Per poter continuare a
- lavorare con il tool è necessario riavviarlo tramite il comando "python3 gui.py" da terminale.
+ lavorare con il tool è necessario riavviarlo da terminale tramite il comando:
+ ```
+ python3 gui.py
+ ```
+
 
  NOTE:
 
@@ -77,4 +81,4 @@ Quali operazioni svolgono i bottoni?
 
 ## Licenza
 
-Questo software è rilasciato sotto la MIT License - vedere [LICENSE.md](LICENSE.md) per i dettagli
+Questo software è rilasciato sotto la MIT License - vedere [LICENSE](LICENSE) per i dettagli
