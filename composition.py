@@ -82,7 +82,6 @@ def refusion(gr_st, nome, node_fus, draw):
                 fus_st[id_to_pos(fus_st, tmpplcl)].next_node.append(maxid)
                 maxid += 1
             else:
-                print(nf_pos[el][0])
                 fus_st[id_to_pos(fus_st, gr_st[nf_pos[el][0]].id)].next_node.append(tmpplop)                            # connetto il + di inizio con il | di inizio
                 i = check.index(gr_st[nf_pos[el][0]].id)
                 fus_st[id_to_pos(fus_st, tmpplcl)].next_node.append(clchid[i])                                          # connetto il | finale con il + di chiusura
@@ -96,7 +95,7 @@ def refusion(gr_st, nome, node_fus, draw):
                 fus_st[id_to_pos(fus_st, tmpplcl)].next_node.append(maxid)
                 maxid += 1
             else:
-                fus_st[nf_pos[el][1]].next_node.append(tmpplop)
+                fus_st[id_to_pos(fus_st, gr_st[nf_pos[el][1]].id)].next_node.append(tmpplop)
                 i = check.index(gr_st[nf_pos[el][1]].id)
                 fus_st[id_to_pos(fus_st, tmpplcl)].next_node.append(clchid[i])
     final_st = []
