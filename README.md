@@ -45,6 +45,11 @@ For dismissing the selection popup click outside the selection area. Unfortunate
     * The ones with _(.gv)_ extension are UNSTRUCTURED GLOBAL GRAPH;
     * The ones with _(.ndr)_ extension are PETRI NET. They can be opened with an external program called [TINA](http://projects.laas.fr/tina/download.php).
 
+## Example
+
+Select "compose.gv" and "parallel.gv" leave the example node given in the text area and click on syncronization.
+The result will be a simple fusion of the decribed node.
+
 ## Release History
 
 * 2.0.0
