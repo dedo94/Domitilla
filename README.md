@@ -1,7 +1,7 @@
 # Domitilla
 Domitilla it's a Global Graph elaboration tool.
 
-The main function that can be done are: 
+The main function that can be executed are: 
 
 - DRAWING: take one graph and give it a graphic representation in PDF.
 - PARALLEL COMPOSITION: take two different graphs and give their parallel composition. 
