@@ -132,10 +132,6 @@ class MyLayout(BoxLayout):
         for line in path_file:
             path = line.strip()
         path_file.close()
-        if self.ids.save_path.text == path or self.ids.save_path.text == "folder":
-            print("waglio... non cambiare il path")
-        else:
-            print("waglio... cambiare il path")
 
     def compose(self):
         name1 = self.ids.gr_1.text
