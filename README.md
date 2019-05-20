@@ -14,24 +14,9 @@ The main function that can be executed are:
 - Graphviz
 - KIVY
 
-
-## Installation
-
-OS X & Linux:
-
-```sh
-
-```
-
-Windows:
-
-```sh
-
-```
-
 ## Running Domitilla
 
-Open terminal, find the right directory e execute:
+Open terminal, find the right directory and execute:
 ```sh
 python3 pagelayout.py
 ```
@@ -59,14 +44,6 @@ For dismissing the selection popup click outside the selection area. Unfortunate
     * The ones with _(.txt)_ extension are STRUCTURED GLOBAL GRAPH; 
     * The ones with _(.gv)_ extension are UNSTRUCTURED GLOBAL GRAPH;
     * The ones with _(.ndr)_ extension are PETRI NET. They can be opened with an external program called [TINA](http://projects.laas.fr/tina/download.php).
-
-## Development setup
-
-Describe how to install all development dependencies and how to run an automated test-suite of some kind. Potentially do this for multiple platforms.
-
-```sh
-
-```
 
 ## Release History
 
