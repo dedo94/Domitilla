@@ -3,7 +3,6 @@ from function import *
 
 
 def petri2(path, nome_grafo, gr_str, save):
-    to_struct(path, gr_str)                                                                                             # genero la struttura
     namefile = nome_grafo
     petri_st = []
     writetxt = []                                                                                                       # array che contiene le stringhe per scrivere .ndr

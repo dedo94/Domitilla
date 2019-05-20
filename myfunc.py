@@ -1,5 +1,8 @@
-from graphviz import Digraph
 import os
+import sys
+sys.path.append('/usr/local/bin/dot')
+sys.path.append('/usr/bin/dot')
+from graphviz import Digraph
 from os.path import relpath
 
 
@@ -30,7 +33,7 @@ def draw_graph(struct, name):
     pathsave = open("path.txt", 'r')
     for line in pathsave:
         pathsave = str(line)
-    g = Digraph(name, filename=name)                                                                                   # inizializzo il disegno del grafo
+    g = Digraph(name, filename=name)                                                                                    # inizializzo il disegno del grafo
 
     for x in range(struct.__len__()):                                                                                   # rileggo la struttura e do i comandi per disegnare il grafo
         id_node = struct[x].id
@@ -102,7 +105,7 @@ def prec_node(graph, node_ist):                                                 
         if node_ist == graph_gr[z].ist:
             id_nodo = graph_gr[z].id
     if id_nodo == -1:
-        return print("Can't find node in that graph")
+        print("Can't find node in that graph")
     else:
         for x in range(graph_gr.__len__()):
             for y in range(graph_gr[x].next_node.__len__()):

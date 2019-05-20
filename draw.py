@@ -2,7 +2,7 @@ from graphviz import Digraph
 
 
 def draw_graph(struct, name):
-    g = Digraph(name, filename=name)                                                                                   # inizializzo il disegno del grafo
+    g = Digraph(name, filename=name)                                                                                    # inizializzo il disegno del grafo
 
     for x in range(struct.__len__()):                                                                                   # rileggo la struttura e do i comandi per disegnare il grafo
         id_node = struct[x].id

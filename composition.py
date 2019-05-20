@@ -54,7 +54,6 @@ def refusion(gr_st, nome, node_fus, draw):
                     if gr_st[g2].ist == node_fus[el][1]:                                                                # finche trovo dei match
                         pos_cp = [g1, g2]                                                                               # creo le coppie posizione
                         nf_pos.append(pos_cp)                                                                           # e le aggiungo alla lista
-    print(nf_pos)
     maxid = max_id(gr_st)                                                                                               # max id utilizzato nella prima struttura
     check = []
     opchid = []                                                                                                         # open choice id

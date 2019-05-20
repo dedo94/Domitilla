@@ -1,4 +1,5 @@
 # file contentente tutte le funzioni di supporto
+# coding=utf-8
 import random
 from myfunc import *
 
@@ -100,7 +101,7 @@ def what_im(gr_st, node):                                                       
     if pos >= gr_st.__len__():
         return None
     else:
-        ist = gr_st[pos].ist                                                                                         # istruzioni dei next node
+        ist = gr_st[pos].ist                                                                                            # istruzioni dei next node
         n_next = gr_st[pos].next_node.__len__()
         if ist == "+":
             prd = pred(gr_st, id)

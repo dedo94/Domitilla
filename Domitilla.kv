@@ -1,0 +1,94 @@
+<Layout>:
+    canvas:
+        Color:
+            rgba: 150,150,150,0.3
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+<MyLayout>:
+    orientation: "vertical"
+    MyHelp:
+        anchor_x: 'right'
+        anchor_y: 'top'
+        size_hint_y: .5
+        Button:
+            text: "?"
+            size_hint_x: .05
+            on_release: root.help()
+    MyLabel:
+        text: "Save Path:"
+        size_hint_y: .5
+    MyFolderChooser:
+        orientation: "horizontal"
+        size_hint_y: .6
+        Label:
+            id: save_path
+            text: "folder"
+        Button:
+            text: "find"
+            size_hint_x: .4
+            on_release: root.save_path("Save path")
+    MyLabel:
+        text: "Graph 1:"
+        size_hint_y: .5
+    MyFileChooser:
+        orientation: "horizontal"
+        size_hint_y: .6
+        Label:
+            id: gr_1
+            text: "file1"
+        Button:
+            text: "find"
+            size_hint_x: .4
+            on_release: root.gr_1("gr_1")
+
+    MyLabel:
+        text: "Graph 2:"
+        size_hint_y: .5
+    MyFileChooser:
+        orientation: "horizontal"
+        size_hint_y: .6
+        Label:
+            id: gr_2
+            text: "file2"
+        Button:
+            text: "find"
+            size_hint_x: .4
+            on_release: root.gr_2("gr_2")
+    MyLabel:
+        text: "Fusion Node:"
+        size_hint_y: .5
+    MyTxt:
+        text: "Insert each pair of nodes in a different row.\nExample:\nA -> H : m ; K -> B : m"
+        id: fuse_area
+        size_hint_y: 3
+    SaveName:
+        orientation: "horizontal"
+        size_hint_y: .5
+        Label:
+            text: "Save name"
+        TextInput:
+            id: save_name
+            text: "prova"
+            multiline: False
+    MyBtnBar:
+        size_hint_y: .6
+        orientation: "horizontal"
+        Button:
+            text: "Draw"
+            on_release: root.draw()
+        Button:
+            text: "Parallel Composition"
+            on_release: root.compose()
+        Button:
+            text: "Synchronization"
+            on_release: root.fuse()
+        Button:
+            text: "Multiplex"
+            on_release:
+        Button:
+            text: "Translate to Petri Net"
+            on_release: root.petri()
+
+
