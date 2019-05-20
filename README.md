@@ -30,6 +30,11 @@ Windows:
 ```
 
 ## Usage example
+Open terminal, find the right directory e execute:
+```sh
+python3 pagelayout.py
+```
+and the tool will run.
 
 - CHOOSE FILE: Click on "select" button under the "graph1" and/or "graph2" section and browse till the desired file and then select it, next click on "OK".
 For dismissing the selection popup click outside the selection area. Unfortunately, at the moment,  if you click "OK" without any file selected the program will crash.
