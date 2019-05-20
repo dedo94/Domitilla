@@ -1,84 +1,79 @@
-# DOMITILLA
+# Domitilla
+Domitilla it's a Global Graph elaboration tool.
 
-Domitlla è un tool per l'elaborazione di Unstructured Global Graph
+The main function that can be done are: 
 
-### Prerequisiti
+- DRAWING: take one graph and give it a graphic representation in PDF.
+- PARALLEL COMPOSITION: take two different graphs and give their parallel composition. 
+- SYNCHRONIZATION: take two different graphs and allow to fuse a pair of nodes. 
+- MULTIPLEXING: take two different graphs and allow to do a more complex fusion.
+- TRANSLATION TO PETRI NET: take one graph and give a relative translation in Petri net in _.ndr_ type supported in [TINA](http://projects.laas.fr/tina/download.php).
 
-Per poter utilizzare Domitilla è necessario installare i seguenti pacchetti:
+## Requirement
+- Python 3.7
+- Graphviz
+- KIVY
 
-Python:
 
-```
-sudo add-apt-repository ppa:jonathonf/python-3.6
+## Installation
 
-sudo apt-get update
+OS X & Linux:
 
-sudo apt-get install python3.6
-```
-
-Graphviz:
-
-```
-sudo apt-get install graphviz
-```
-
-PySimpleGUI:
+```sh
 
 ```
-sudo pip install PySimpleGUI
+
+Windows:
+
+```sh
+
 ```
 
-## Utilizzo
+## Usage example
 
-Per poter avviare il programma recarsi nella cartella da terminale e utilizzare il comando:
+- CHOOSE FILE: Click on "select" button under the "graph1" and/or "graph2" section and browse till the desired file and then select it, next click on "OK".
+For dismissing the selection popup click outside the selection area. Unfortunately, at the moment,  if you click "OK" without any file selected the program will crash.
+
+- DRAW: Select at least one graph.
+
+- PARALLEL COMPOSITION: select two graphs.
+
+- SYNCRONIZATION: Select two graphs. Manually write into the dedicated text area the pair of nodes that you would fuse. Following the given example for the correct syntax.
+
+- MULTIPLEX: Select two graphs. Manually write into the dedicated text area the pair of nodes that you would fuse. Following the given example for the correct syntax.
+ 
+- TRANSLATE TO PETRI NET: Select at least one graph.
+
+- It's possible to change the save path for output saving in "Save Path" section. Click on "find", select the desired folder and then click "OK". 
+For dismissing the selection popup click outside the selection area. Unfortunately, at the moment,  if you click "OK" without any file selected the program will crash. 
+
+- Inside "grafi" folder there are some example of graphs:
+    * The ones with _(.txt)_ extension are STRUCTURED GLOBAL GRAPH; 
+    * The ones with _(.gv)_ extension are UNSTRUCTURED GLOBAL GRAPH;
+    * The ones with _(.ndr)_ extension are PETRI NET. They can be opened with an external program called [TINA](http://projects.laas.fr/tina/download.php).
+
+## Development setup
+
+Describe how to install all development dependencies and how to run an automated test-suite of some kind. Potentially do this for multiple platforms.
+
+```sh
+
 ```
-python3 gui.py
-```
 
-Quali operazioni svolgono i bottoni?
+## Release History
 
- - COMPOSE: selezionare due grafi tramite i bottone Browse appartenenti rispettivamente a FIRST GRAPH e SECOND GRAPH,
- (cambiare il nome di salvataggio). Compose mette in parallelo i due grafi in input e ne restituisce il file DOT
- e il disegno in PDF relativi alla composizione.
+* 2.0.0
+    * CHANGE: restyled graphic interface written using KIVY library
+    * CHANGE: cross platform support
+    * ADD: new function added: MULTIPLEX 
+* 1.0.0
+    * ADD: graphic interface written using PySimpleGui library
+* 0.1.0
+    * more sophisticated command line function
+* 0.0.1
+    * different command line function
 
- - FUSE: selezionare un grafo tramite i bottone Browse e inserire le coppie di nodi che vogliamo fondere separate da ";".
- Selezionare due grafi in FIRST GRAPH e SECOND GRAPH nel caso in cui si voglia eseguire l'operazione su
- due grafi separati (COMPOSE + FUSE). (Cambiare il nome di salvataggio).
- Fuse realizzerà una composizione dei grafi e in aggiunta fonderà i nodi che rispettano i requisiti e ne restituisce
- il file DOT e il disegno in PDF relativo.
+## Author
+**Davide Schiavi** - [dedo94](https://github.com/dedo94) – davideschiavi94@gmail.com
 
- - DRAW: inserire in almeno uno dei due campi di ricerca di file un grafo, indicare se si tratta di un grafo stutturato
- o non strutturato. Draw restituirà il disegno in .pdf (se vengono inseriti due grafi verranno disegnati entrambi).
-
- - PETRINET: l'utilizzo è il medesimo di DRAW. Dato in input un Unstructured Global Graph (.gv) restituisce la traduzione
- in rete di Petri (.ndr)
-
- - E' possibile, inoltre, modificare il path di salvataggio dei file (in alto).
-
- All'interno della cartella grafi sono presenti alcuni esempi di grafo. Quelli strutturati sono in formato .txt mentre
- quelli non strutturati sono in formato DOT (.gv).
-
- N.B.: sfortunatamente ogni volta che viene portata a termine un'operazione Domitilla termina. Per poter continuare a
- lavorare con il tool è necessario riavviarlo da terminale tramite il comando:
- ```
- python3 gui.py
- ```
-
-
- NOTE:
-
-  - Non è possibile fare una fusione utilizzando un grafo strutturato; tuttavia è possibile renderlo non strutturato e quindi
-    succesivamente eseguirne la fusione.
-
-## Librerie usate
-
-* [Graphviz](https://www.graphviz.org/) - Per generare i grafi
-* [PySimpleGUI](https://pysimplegui.readthedocs.io/) - Per generare l'interfaccia grafica
-
-## Autore
-
-* **Davide Schiavi** - [dedo94](https://github.com/dedo94)
-
-## Licenza
-
-Questo software è rilasciato sotto la MIT License - vedere [LICENSE](LICENSE) per i dettagli
+Distributed under the MIT license. See [LICENSE](LICENSE) for more information.
