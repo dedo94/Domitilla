@@ -29,7 +29,7 @@ and the tool will run.
 ## Usage example
 
 - CHOOSE FILE: Click on "select" button under the "graph1" and/or "graph2" section and browse till the desired file and then select it, next click on "OK".
-For dismissing the selection popup click outside the selection area.
+For dismissing the selection popup click outside the selection area or click on "OK" without any file selected. 
 
 - DRAW: Select at least one graph.
 
