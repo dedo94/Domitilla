@@ -14,6 +14,10 @@ The main function that can be executed are:
 - Graphviz
 - KIVY
 
+## CrossPlatform?
+
+Tested on macOs Mojave 10.14.4 and Ubuntu 18.04.2 LTS
+
 ## Running Domitilla
 
 Open terminal, find the right directory and execute:
@@ -25,7 +29,7 @@ and the tool will run.
 ## Usage example
 
 - CHOOSE FILE: Click on "select" button under the "graph1" and/or "graph2" section and browse till the desired file and then select it, next click on "OK".
-For dismissing the selection popup click outside the selection area. Unfortunately, at the moment,  if you click "OK" without any file selected the program will crash.
+For dismissing the selection popup click outside the selection area.
 
 - DRAW: Select at least one graph.
 
