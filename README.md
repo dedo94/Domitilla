@@ -54,6 +54,11 @@ For dismissing the selection popup click outside the selection area. Unfortunate
 Select "compose.gv" and "parallel.gv" leave the example node given in the text area and click on syncronization.
 The result will be a simple fusion of the decribed node.
 
+## Known Issue
+
+- On Ubuntu the file selection popup has bad color and make hard to read the file inside.
+- folder select at the moment did't work.
+
 ## Release History
 
 * 2.0.0
