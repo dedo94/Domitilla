@@ -59,7 +59,7 @@ The result will be a simple fusion of the decribed node.
 * 2.0.0
     * CHANGE: restyled graphic interface written using KIVY library
     * CHANGE: cross platform support
-    * ADD: new function added: MULTIPLEX 
+    * ADD: help button 
 * 1.0.0
     * ADD: graphic interface written using PySimpleGui library
 * 0.1.0
