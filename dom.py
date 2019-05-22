@@ -147,7 +147,7 @@ class MyLayout(BoxLayout):
         name1 = self.ids.gr_1.text
         name2 = self.ids.gr_2.text
 
-        if name1.find(".gv") == name1.__len__() - 3 and name2.find(".gv") == name1.__len__() - 3:
+        if name1.find(".gv") == name1.__len__() - 3 and name2.find(".gv") == name2.__len__() - 3:
             composition(name1, name2, self.ids.save_name.text, 1)
         else:
             if name1 == "file1" or name1 == "file 1 missing" or \
