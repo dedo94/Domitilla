@@ -92,6 +92,7 @@ class MyLayout(BoxLayout):
             pass
 
     def gr_1(self, obj):
+        self.overwrite_path()
         path_file = open("path.txt", 'r')
         for line in path_file:
             path = line.strip()
@@ -114,6 +115,7 @@ class MyLayout(BoxLayout):
             pass
 
     def gr_2(self, obj):
+        self.overwrite_path()
         path_file = open("path.txt", 'r')
         for line in path_file:
             path = line.strip()
@@ -134,9 +136,12 @@ class MyLayout(BoxLayout):
             path = line.strip()
         path_file.close()
         if self.ids.save_path.text == path or self.ids.save_path.text == "folder":
-            print("waglio... non cambiare il path")
+            pass
         else:
-            print("waglio... cambiare il path")
+            f = open("path.txt", 'w')
+            f.write(self.ids.save_path.text)
+            f.close()
+        self.ids.save_path.text = "folder"
 
     def compose(self):
         name1 = self.ids.gr_1.text
