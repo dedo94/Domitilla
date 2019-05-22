@@ -67,9 +67,9 @@ The result will be a simple fusion of the decribed node.
     * ADD: help button 
 * 1.0.0
     * ADD: graphic interface written using PySimpleGui library
-* 0.1.0
+* 0.1.1
     * more sophisticated command line function
-* 0.0.1
+* 0.1.0
     * different command line function
 
 ## Author
