@@ -56,7 +56,7 @@ The result will be a simple fusion of the decribed node.
 
 ## Known Issue
 
-- On Ubuntu the file selection popup has bad color and make hard to read the file inside.
+- The file selection popup has bad color and make hard to read the file inside. (solved but tested only on macOs)
 - folder select at the moment did't work.
 
 ## Release History
