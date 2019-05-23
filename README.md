@@ -11,8 +11,8 @@ The main function that can be executed are:
 
 ## Requirement
 - Python 3.7
-- Graphviz
-- KIVY
+- Graphviz 0.10.1
+- KIVY 1.10.1
 
 ## CrossPlatform?
 
