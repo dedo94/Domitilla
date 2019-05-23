@@ -22,7 +22,7 @@ Tested on macOs Mojave 10.14.4 and Ubuntu 18.04.2 LTS
 
 Open terminal, find the right directory and execute:
 ```sh
-python3 pagelayout.py
+python3 dom.py
 ```
 and the tool will run.
 
@@ -51,16 +51,17 @@ For dismissing the selection popup click outside the selection area. Unfortunate
 
 ## Example
 
-Select "compose.gv" and "parallel.gv" leave the example node given in the text area and click on syncronization.
-The result will be a simple fusion of the decribed node.
+SYNCHRONIZATION: Select "compose.gv" and "parallel.gv" leave the example node given in the text area and click on syncronization. The result will be a simple fusion of the decribed node.
 
-## Known Issue
+## Known Issue/Bugs or Missing Function 
 
-- The file selection popup has bad color and make hard to read the file inside. (solved but tested only on macOs)
 - MULTIPLEX button it has no function yet.
 
 ## Release History
 
+* 2.0.1
+    * CHANGE: better path handling function
+    * CHANGE: graphic bug in UI solved
 * 2.0.0
     * CHANGE: restyled graphic interface written using KIVY library
     * CHANGE: cross platform support
