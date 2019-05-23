@@ -1,3 +1,4 @@
+import kivy
 import platform
 import shlex
 import subprocess
@@ -16,6 +17,8 @@ from kivy.uix.popup import Popup
 from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 from functools import partial
+
+kivy.require('1.10.1')
 
 
 class MyLabel(Label):
@@ -51,11 +54,25 @@ class MyBtnBar(BoxLayout):
 
 
 class MyLayout(BoxLayout):
-    path_file = open("path.txt", 'r')
-    for line in path_file:
-        path = line.strip()
-    path_file.close()
-    gr1 = None
+    print(kivy.__version__)
+
+    def pathfy(self):
+        path_file = open("path.txt", 'r')
+        paths = []
+        for line in path_file:
+            print(line)
+            paths.append(line.strip())
+        path_file.close()
+        # per Windows
+        if platform.system() == "Windows":
+            pass
+        # per macOs
+        if platform.system() == "Darwin":
+            path = paths[0]
+        # per Linux
+        if platform.system() == "Linux":
+            path = paths[1]
+        return path
 
     def load(self, path, selection):
         # print path
@@ -70,10 +87,7 @@ class MyLayout(BoxLayout):
             pass
 
     def save_path(self, obj):
-        path_file = open("path.txt", 'r')
-        for line in path_file:
-            path = line.strip()
-        path_file.close()
+        path = self.pathfy()
         layout = BoxLayout(orientation='vertical')
         filechooser = FileChooserIconView(path=path, dirselect=True)
         btn = Button(size_hint_y=None, text="OK")
@@ -93,10 +107,7 @@ class MyLayout(BoxLayout):
 
     def gr_1(self, obj):
         self.overwrite_path()
-        path_file = open("path.txt", 'r')
-        for line in path_file:
-            path = line.strip()
-        path_file.close()
+        path = self.pathfy()
         layout = BoxLayout(orientation='vertical')
         filechooser = FileChooserIconView(path=path, dirselect=False)
         btn = Button(size_hint_y=None, text="OK")
@@ -116,10 +127,7 @@ class MyLayout(BoxLayout):
 
     def gr_2(self, obj):
         self.overwrite_path()
-        path_file = open("path.txt", 'r')
-        for line in path_file:
-            path = line.strip()
-        path_file.close()
+        path = self.pathfy()
         layout = BoxLayout(orientation='vertical')
         filechooser = FileChooserIconView(path=path, dirselect=False)
         btn = Button(size_hint_y=None, text="OK")
@@ -131,22 +139,31 @@ class MyLayout(BoxLayout):
         btn.bind(on_release=popup.dismiss)
 
     def overwrite_path(self):
-        path_file = open("path.txt", 'r')
-        for line in path_file:
-            path = line.strip()
-        path_file.close()
+        path = self.pathfy()
+        paths = []
         if self.ids.save_path.text == path or self.ids.save_path.text == "folder":
             pass
         else:
+            # per Windows
+            if platform.system() == "Windows":
+                pass
+            # per macOs
+            if platform.system() == "Darwin":
+                paths.append(self.ids.save_path.text)
+                paths.append("home/")
+            # per Linux
+            if platform.system() == "Linux":
+                paths.append("/Users")
+                paths.append(self.ids.save_path.text)
             f = open("path.txt", 'w')
-            f.write(self.ids.save_path.text)
+            for pth in range(paths.__len__()):
+                f.write(paths[pth] + "\n")
             f.close()
         self.ids.save_path.text = "folder"
 
     def compose(self):
         name1 = self.ids.gr_1.text
         name2 = self.ids.gr_2.text
-
         if name1.find(".gv") == name1.__len__() - 3 and name2.find(".gv") == name2.__len__() - 3:
             composition(name1, name2, self.ids.save_name.text, 1)
         else:

@@ -1,1 +1,2 @@
-/Users/davideschiavi/PycharmProjects/DomitillaKivy/grafi
+/Users/davideschiavi/PycharmProjects/DomitillaKivy/venv
+home/
