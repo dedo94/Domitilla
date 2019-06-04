@@ -2,6 +2,7 @@ from myfunc import *
 
 
 def struct_gr(path, nome_grafo, struct, draw):
+    nome_grf = nome_grafo.split(".")
     file = open(path, 'r')
     gr_node = struct                                                                                                    # array con la struttura dei nodi
     id = 0                                                                                                              # id dei nodi
@@ -42,7 +43,7 @@ def struct_gr(path, nome_grafo, struct, draw):
                 gr_node.append(node(id, "+", id + 2))                                                                   # creo il nodo <+> iniziale
                 id += 1
                 rec_end.append(id)                                                                                      # traccio l'id del nodo di fine della recursion
-                gr_node.append(node(id, "+", id + 1))                                                                   # creo il nodo <+> finale
+                gr_node.append(node(id, "+", id - 1))                                                                   # creo il nodo <+> finale
                 id += 1
 
             elif el.count("+") > 0 and el.strip() == "+":                                                               # nuovo ramo choice
@@ -75,23 +76,16 @@ def struct_gr(path, nome_grafo, struct, draw):
                         if el.count("} @") > 0:                                                                         # treminazione indirizzata
                             tmp_el = el.split("@")                                                                      # cerco come indirizzare l'arco uscente dal nodo
                             tmp_el = tmp_el[1].strip()                                                                  # ottengo l'informazione che mi serve
-
+                            gr_node[-1].next_node.pop(-1)
                             if tmp_el == "(o)":                                                                         # break
                                 gr_node.append(node(id, "end"))                                                         # creo il nodo (o)
                                 id += 1
 
                             if tmp_el.count("->") == tmp_el.count(":") == 1:                                            # termina in un altro nodo
+                                if case[-1] == "r":                                                                     # siamo nel caso di ricorsione
+                                    gr_node[rec_end[-1]].next_node.append(id)
+                                    gr_node[-1].next_node.append(rec_end[-1])
 
-                                for x in range(gr_node.__len__()):                                                      # cerco l'istruzione
-
-                                    if gr_node[x].ist == tmp_el:                                                        # se la trovo
-
-                                        if case[-1] == "r":                                                             # siamo nel caso di ricorsione
-                                            gr_node.append(node(id, "+", gr_node[x].id + 1, rec_end[-1]))               # creo il nodo <+> finale connesso all'istruzione e a quello iniziale
-                                            id += 1
-
-                                        elif case[-1] == "c":                                                           # siamo nel caso choice
-                                            gr_node[id - 1].next_node[0] = gr_node[x].id + 1                            # modifico l'arco uscente e lo faccio puntare all'istruzione
                         elif el.count("}") > 0 and el.strip() == "}" and case[-1] == "c":
                             gr_node[id - 1].next_node[0] = cho_end[-1]
                 else:
@@ -105,6 +99,7 @@ def struct_gr(path, nome_grafo, struct, draw):
                         set_istruction = 0                                                                              # cambio la variabile e non faccio niente
 
                     else:                                                                                               # altrimenti
+                        tmp_case = case[-1]  # analizzo l'ultimo caso
                         if tmp_case == "r":                                                                             # termine di una recursion
                             case.pop()                                                                                  # elimino l'ultimo caso
                             rec_start.pop()                                                                             # elimino gli ultimi id
@@ -129,6 +124,7 @@ def struct_gr(path, nome_grafo, struct, draw):
 
                 gr_node.append(node(id, str(el), id + 1))                                                               # aggiungo nodo con istruzione
                 id += 1
+    gr_node.append(node(id, "end"))
 
     file.close()
 

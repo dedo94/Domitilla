@@ -1,2 +1,2 @@
-/Users/davideschiavi/PycharmProjects/DomitillaKivy/venv
+/Users/davideschiavi/PycharmProjects/domitillakivy2/grafi/simple_par_ch
 home/

@@ -1,9 +1,13 @@
+import platform
+
 from graphviz import Digraph
 
 
 def draw_graph(struct, name):
-    g = Digraph(name, filename=name)                                                                                    # inizializzo il disegno del grafo
-
+    g_name = name.split(".")
+    g = Digraph(name, filename=name)                                                                               # inizializzo il disegno del grafo
+    print(name)
+    print(g_name[0])
     for x in range(struct.__len__()):                                                                                   # rileggo la struttura e do i comandi per disegnare il grafo
         id_node = struct[x].id
         ist_node = struct[x].ist
@@ -29,7 +33,21 @@ def draw_graph(struct, name):
             for y in next_node_id:
                 g.edge(str(id_node), str(y))
 
-    path = open("path.txt", 'r')
-    for line in path:
-        line = line.strip()
-    g.view(name, line, False)                                                                                           # disegno il grafo
+    path_file = open("path.txt", 'r')
+    paths = []
+    for line in path_file:
+        paths.append(line.strip())
+    path_file.close()
+    # per Windows
+    if platform.system() == "Windows":
+        pass
+    # per macOs
+    if platform.system() == "Darwin":
+        path = paths[0]
+        print("diohane")
+    # per Linux
+    if platform.system() == "Linux":
+        path = paths[1]
+    g.view(g_name[0], path, False)                                                                                      # disegno il grafo
+
+

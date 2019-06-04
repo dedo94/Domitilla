@@ -8,7 +8,6 @@ def composition(gr1, gr2, name, draw):
     dot_not_struct(gr1, "og1", str_g1, 0)                                                                               # la riempo
     str_g2 = []                                                                                                         # struttura secondo grafo
     dot_not_struct(gr2, "og2", str_g2, 0)                                                                               # la riempo
-
     fus_str = []                                                                                                        # struttura del grafo fuso
     new_g1 = reassign_id(str_g1, 1)                                                                                     # riassegno gli id del primo grafo
     max = max_id(new_g1)                                                                                                # max id utilizzato nella prima struttura
@@ -16,25 +15,33 @@ def composition(gr1, gr2, name, draw):
     fus_str.append(node(0, "start", 1))                                                                                 # creo il nuovo start
     fus_str.append(node(1, "|"))                                                                                        # nodo[|]
     lastg1 = None                                                                                                       # id ultimo nodo primo grafo
-    for elm in range(new_g1.__len__()):                                                                                 # copio la struttura del primo grafo in quella di fusione
-        fus_str.append(new_g1[elm])
-        if new_g1[elm].next_node.__len__() == 0:
-            lastg1 = new_g1[elm].id
+    lastg2 = None                                                                                                       # id ultimo nodo secondo grafo
+
+    for el in range(new_g1.__len__()):
+        if new_g1[el].ist == "end":
+            lastg1 = new_g1[el].id
+        else:
+            fus_str.append(new_g1[el])
     fus_str[1].next_node.append(new_g1[0].id)                                                                           # connetto il parallelo
 
-    lastg2 = None                                                                                                       # id ultimo nodo secondo grafo
-    for elm in range(new_g2.__len__()):                                                                                 # copio la struttura del secondo grafo in quella di fusione
-        fus_str.append(new_g2[elm])
-        if new_g2[elm].next_node.__len__() == 0:
-            lastg2 = new_g2[elm].id
+    for el in range(new_g2.__len__()):
+        if new_g2[el].ist == "end":
+            lastg2 = new_g2[el].id
+        else:
+            fus_str.append(new_g2[el])
     fus_str[1].next_node.append(new_g2[0].id)                                                                           # connetto il parallelo
 
-    lastg1 = find_pos(fus_str, lastg1)                                                                                  # cerco la posizione nella struttura
-    lastg2 = find_pos(fus_str, lastg2)                                                                                  # dei due nodi finali
-
     id_max = max_id(fus_str)                                                                                            # per poi richiudere il tutto
-    fus_str[lastg1].next_node.append(id_max)
-    fus_str[lastg2].next_node.append(id_max)
+
+    for el in range(fus_str.__len__()):
+        for ele in range(fus_str[el].next_node.__len__()):
+            if fus_str[el].next_node[ele] == lastg1:
+                fus_str[el].next_node.remove(lastg1)
+                fus_str[el].next_node.append(id_max)
+            if fus_str[el].next_node[ele] == lastg2:
+                fus_str[el].next_node.remove(lastg2)
+                fus_str[el].next_node.append(id_max)
+
     fus_str.append(node(id_max, "|", id_max + 1))
     fus_str.append(node(id_max + 1, "end"))
 

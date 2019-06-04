@@ -3,9 +3,10 @@ from myfunc import *
 
 
 def dot_not_struct(path, nome_grafo, struct, draw):
+
     file = open(path, "r")
     gr_node = struct                                                                                                    # array con la struttura dei nodi
-
+    nome_grf = nome_grafo.split(".")
     for line in file:
 
         if line.count("->") == 1 and line.count("label") == 0:                                                          # archi

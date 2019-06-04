@@ -60,7 +60,6 @@ class MyLayout(BoxLayout):
         path_file = open("path.txt", 'r')
         paths = []
         for line in path_file:
-            print(line)
             paths.append(line.strip())
         path_file.close()
         # per Windows
@@ -166,6 +165,7 @@ class MyLayout(BoxLayout):
         name2 = self.ids.gr_2.text
         if name1.find(".gv") == name1.__len__() - 3 and name2.find(".gv") == name2.__len__() - 3:
             composition(name1, name2, self.ids.save_name.text, 1)
+
         else:
             if name1 == "file1" or name1 == "file 1 missing" or \
                     name1 == "Unsupported file" or name1 == "select Unstructured graph":
@@ -186,12 +186,14 @@ class MyLayout(BoxLayout):
 
     def draw(self):
         name1 = self.ids.gr_1.text
+        draw1 = name1.split("/")
+        draw1 = draw1[-1].split(".")
         if name1.find(".gv") == name1.__len__() - 3:
             a1 = []
-            dot_not_struct(name1, "draw1.gv", a1, 1)
+            dot_not_struct(name1, draw1[0] + ".gv", a1, 1)
         elif name1.find(".txt") == name1.__len__() - 4:
             a2 = []
-            struct_gr(name1, "draw1.gv", a2, 1)
+            struct_gr(name1, draw1[0] + ".gv", a2, 1)
         elif name1 == "file1" or name1 == "file 1 missing" or \
                     name1 == "Unsupported file" or name1 == "select Unstructured graph":
             self.ids.gr_1.text = "file1"
@@ -201,12 +203,14 @@ class MyLayout(BoxLayout):
             self.ids.gr_2.color = 125, 0, 0, 1
 
         name2 = self.ids.gr_2.text
+        draw2 = name2.split("/")
+        draw2 = draw2[-1].split(".")
         if name2.find(".gv") == name2.__len__() - 3:
             b1 = []
-            dot_not_struct(name2, "draw2.gv", b1, 1)
+            dot_not_struct(name2, draw2[0] + ".gv", b1, 1)
         elif name2.find(".txt") == name2.__len__() - 4:
             b2 = []
-            struct_gr(name2, "draw2.gv", b2, 1)
+            struct_gr(name2, draw2[0] + ".gv", b2, 1)
         elif name2 == "file2" or name2 == "file 2 missing" or \
                     name2 == "Unsupported file" or name2 == "select Unstructured graph":
             self.ids.gr_2.text = "file2"
@@ -252,9 +256,20 @@ class MyLayout(BoxLayout):
 
     def petri(self):
         path_file = open("path.txt", 'r')
+        paths = []
         for line in path_file:
-            path = line.strip()
+            paths.append(line.strip())
         path_file.close()
+        # per Windows
+        if platform.system() == "Windows":
+            pass
+        # per macOs
+        if platform.system() == "Darwin":
+            path = paths[0]
+        # per Linux
+        if platform.system() == "Linux":
+            path = paths[1]
+
         name1 = self.ids.gr_1.text
         a = []
         if name1.find(".gv") == name1.__len__() - 3:

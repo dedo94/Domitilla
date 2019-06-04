@@ -50,7 +50,7 @@ def search_node(gr_st, id):                                                     
 
 def st_print_all(struct):                                                                                               # mi permette di stampare tutta la struttura
     for elem in range(struct.__len__()):
-        # print(str(elem) + ".")
+        print(str(elem) + ".")
         print("\n")
         print("id: " + str(struct[elem].id))
         print("label: " + str(struct[elem].ist))

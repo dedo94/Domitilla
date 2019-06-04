@@ -1,4 +1,5 @@
 import os
+import platform
 import sys
 sys.path.append('/usr/local/bin/dot')
 sys.path.append('/usr/bin/dot')
@@ -30,11 +31,22 @@ def pathfy(filepath):
 
 
 def draw_graph(struct, name):
-    pathsave = open("path.txt", 'r')
-    for line in pathsave:
-        pathsave = str(line)
-    g = Digraph(name, filename=name)                                                                                    # inizializzo il disegno del grafo
-
+    g_name = name.split(".")
+    g = Digraph(g_name[0], filename=g_name[0])                                                                               # inizializzo il disegno del grafo
+    path_file = open("path.txt", 'r')
+    paths = []
+    for line in path_file:
+        paths.append(line.strip())
+    path_file.close()
+    # per Windows
+    if platform.system() == "Windows":
+        pass
+    # per macOs
+    if platform.system() == "Darwin":
+        path = paths[0]
+    # per Linux
+    if platform.system() == "Linux":
+        path = paths[1]
     for x in range(struct.__len__()):                                                                                   # rileggo la struttura e do i comandi per disegnare il grafo
         id_node = struct[x].id
         ist_node = struct[x].ist
@@ -59,7 +71,8 @@ def draw_graph(struct, name):
 
             for y in next_node_id:
                 g.edge(str(id_node), str(y))
-    g.view(name, pathsave, False)                                                                                       # disegno il grafo
+
+    g.view(name, path, False)                                                                                      # disegno il grafo
 
 
 def id_to_pos(str_gr, id_node):                                                                                         # data un struttura e un id
@@ -82,18 +95,11 @@ def ist_to_id(str_gr, ist):                                                     
 
 def reassign_id(str_gr, start_id):
     new_str_gr = []
-
-    for x in range(str_gr.__len__()):                                                                                   # ciclo tutti i nodi
-        if str_gr[x].ist != "start" and str_gr[x].ist != "end":                                                         # se diversi da start e end
-            new_str_gr.append(str_gr[x])                                                                                # copio il nodo nella nuova struttura
-            new_str_gr[-1].id = int(new_str_gr[-1].id) + start_id                                                       # modifico il suo id
-            if str_gr[x].next_node.__len__() > 0:                                                                       # se ho dei next node
-                for y in range(str_gr[x].next_node.__len__()):                                                          # li ciclo
-                    new_str_gr[-1].next_node[y] = int(new_str_gr[-1].next_node[y]) + start_id                           # e li modifico
-
-        if str_gr[x].ist == "end":                                                                                      # se trovo il nodo di end
-            new_str_gr[-1].next_node.clear()                                                                            # modifico il nodo precedente
-
+    for el in range(str_gr.__len__()):
+        if str_gr[el].ist != "start":                                                       # se diversi da start e end
+            new_str_gr.append(node(int(str_gr[el].id) + start_id, str_gr[el].ist))
+            for ele in range(str_gr[el].next_node.__len__()):
+                new_str_gr[-1].next_node.append(int(str_gr[el].next_node[ele]) + start_id)
     return new_str_gr
 
 
@@ -134,5 +140,5 @@ def print_str(struct_gr, space):
 
 def find_pos(gr, id):
     for el in range(gr.__len__()):
-        if gr[el].id == id:
+        if int(gr[el].id) == int(id):
             return el
