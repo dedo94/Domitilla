@@ -1,0 +1,14 @@
+digraph AAric2 {
+	0 [label="" shape=circle]
+	0 -> 1
+	1 [label="+" shape=diamond]
+	1 -> 3
+	2 [label="+" shape=diamond]
+	2 -> 1
+	2 -> 5
+	3 [label="K -> B : n" shape=rect]
+	3 -> 4
+	4 [label="K -> B : n" shape=rect]
+	4 -> 2
+	5 [label="" shape=doublecircle]
+}

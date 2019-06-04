@@ -1,0 +1,26 @@
+digraph composition {
+	0 [label="" shape=circle]
+	0 -> 1
+	1 [label="|" shape=square]
+	1 -> 2
+	1 -> 7
+	2 [label="+" shape=diamond]
+	2 -> 4
+	3 [label="+" shape=diamond]
+	3 -> 2
+	3 -> 11
+	4 [label="A -> H : n" shape=rect]
+	4 -> 3
+	7 [label="+" shape=diamond]
+	7 -> 9
+	8 [label="+" shape=diamond]
+	8 -> 7
+	8 -> 11
+	9 [label="K -> B : n" shape=rect]
+	9 -> 10
+	10 [label="K -> B : n" shape=rect]
+	10 -> 8
+	11 [label="|" shape=square]
+	11 -> 12
+	12 [label="" shape=doublecircle]
+}
