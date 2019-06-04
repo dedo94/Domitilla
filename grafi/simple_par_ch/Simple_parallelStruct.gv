@@ -1,0 +1,15 @@
+digraph Simple_parallelStruct {
+	0 [label="" shape=circle]
+	0 -> 1
+	1 [label="|" shape=square]
+	1 -> 2
+	1 -> 4
+	2 [label="A -> H : m" shape=rect]
+	2 -> 3
+	3 [label="|" shape=square]
+	3 -> 5
+	4 [label="D -> H : m" shape=rect]
+	4 -> 3
+	5 [label="" shape=doublecircle]
+	5 [label="" shape=doublecircle]
+}

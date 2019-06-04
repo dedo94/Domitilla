@@ -1,0 +1,53 @@
+digraph sync1 {
+	0 [label="" shape=circle]
+	0 -> 1
+	1 [label="|" shape=square]
+	1 -> 2
+	1 -> 10
+	2 [label="+" shape=diamond]
+	2 -> 4
+	2 -> 6
+	3 [label="+" shape=diamond]
+	3 -> 14
+	5 [label="K -> C : n" shape=rect]
+	5 -> 3
+	6 [label="K -> C : n" shape=rect]
+	6 -> 7
+	10 [label="|" shape=square]
+	10 -> 11
+	10 -> 13
+	12 [label="|" shape=square]
+	12 -> 14
+	13 [label="D -> H : m" shape=rect]
+	13 -> 12
+	14 [label="|" shape=square]
+	14 -> 15
+	15 [label="" shape=doublecircle]
+	16 [label="|" shape=square]
+	16 -> 17
+	17 [label="A -> B : m" shape=rect]
+	17 -> 18
+	18 [label="|" shape=square]
+	18 -> 19
+	18 -> 20
+	11 [label="+" shape=diamond]
+	11 -> 16
+	11 -> 21
+	19 [label="+" shape=diamond]
+	19 -> 12
+	4 [label="+" shape=diamond]
+	4 -> 16
+	20 [label="+" shape=diamond]
+	20 -> 5
+	21 [label="|" shape=square]
+	21 -> 22
+	22 [label="A -> B : m" shape=rect]
+	22 -> 23
+	23 [label="|" shape=square]
+	23 -> 19
+	23 -> 24
+	7 [label="+" shape=diamond]
+	7 -> 21
+	24 [label="+" shape=diamond]
+	24 -> 3
+}
