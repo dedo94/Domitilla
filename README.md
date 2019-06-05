@@ -60,6 +60,7 @@ SYNCHRONIZATION: Select "compose.gv" and "parallel.gv" leave the example node gi
 ## Release History
 
 * 2.0.2
+    * ADD: Clear All button
     * CHANGE: modified graph folder, now has a better organization
     * CHANGE: fixed problem saving directory
     * CHANGE: fixed various problem (parser, fusion, ecc.)
