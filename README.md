@@ -59,6 +59,9 @@ SYNCHRONIZATION: Select "compose.gv" and "parallel.gv" leave the example node gi
 
 ## Release History
 
+* 2.0.2
+    * CHANGE: fixed problem saving directory
+    * CHANGE: fixed various problem (parser, fusion, ecc.)
 * 2.0.1
     * CHANGE: better path handling function
     * CHANGE: graphic bug in UI solved
