@@ -25,6 +25,10 @@ class MyLabel(Label):
     pass
 
 
+class MyNavBar(GridLayout):
+    pass
+
+
 class MyHelp(AnchorLayout):
     pass
 
@@ -72,6 +76,16 @@ class MyLayout(BoxLayout):
         if platform.system() == "Linux":
             path = paths[1]
         return path
+
+    def clear(self):
+        self.ids.gr_1.text = "file1"
+        self.ids.gr_1.color = 51, 51, 51, 1
+        self.ids.gr_2.text = "file2"
+        self.ids.gr_2.color = 51, 51, 51, 1
+        self.ids.gr_1.save_path = "folder"
+        self.ids.gr_2.save_path = 51, 51, 51, 1
+        self.ids.fuse_area.text = "Insert each pair of nodes in a different row.\nExample:\nA -> H : m ; K -> B : m"
+        self.ids.save_name.text = "prova"
 
     def load(self, path, selection):
         # print path
@@ -197,7 +211,7 @@ class MyLayout(BoxLayout):
         elif name1 == "file1" or name1 == "file 1 missing" or \
                     name1 == "Unsupported file" or name1 == "select Unstructured graph":
             self.ids.gr_1.text = "file1"
-            self.ids.gr_1.color = 255, 255, 255, 1
+            self.ids.gr_1.color = 51, 51, 51, 1
         else:
             self.ids.gr_2.text = "Unsupported file"
             self.ids.gr_2.color = 125, 0, 0, 1
@@ -214,7 +228,7 @@ class MyLayout(BoxLayout):
         elif name2 == "file2" or name2 == "file 2 missing" or \
                     name2 == "Unsupported file" or name2 == "select Unstructured graph":
             self.ids.gr_2.text = "file2"
-            self.ids.gr_2.color = 255, 255, 255, 1
+            self.ids.gr_2.color = 51, 51, 51, 1
         else:
             self.ids.gr_2.text = "Unsupported file"
             self.ids.gr_2.color = 125, 0, 0, 1
@@ -271,35 +285,56 @@ class MyLayout(BoxLayout):
             path = paths[1]
 
         name1 = self.ids.gr_1.text
+        namea = name1.split("/")
+        namea = namea[-1].split(".")
+        namea = namea[0]
         a = []
         if name1.find(".gv") == name1.__len__() - 3:
-            dot_not_struct(name1, "draw1.gv", a, 0)
-            petri2(name1, "petri1", a, path)
+            dot_not_struct(name1, namea + ".gv", a, 0)
+            print(type(a[0].next_node[0]))
+
+            for el in range(a.__len__()):
+                print(a[el].id)
+                print(a[el].ist)
+                print(a[el].next_node)
+
+            petri2(name1, namea, a, path)
         elif name1.find(".txt") == name1.__len__() - 4:
-            struct_gr(name1, "draw1.gv", a, 0)
-            petri2(name1, "petri1", a, path)
+            struct_gr(name1, namea, a, 0)
+            petri2(name1, namea, a, path)
         elif name1 == "file1" or name1 == "file 1 missing" or \
-                    name1 == "Unsupported file" or name1 == "select Unstructured graph":
+                name1 == "Unsupported file" or name1 == "select Unstructured graph":
             self.ids.gr_1.text = "file1"
-            self.ids.gr_1.color = 255, 255, 255, 1
+            self.ids.gr_1.color = 51, 51, 51, 1
         else:
             self.ids.gr_1.text = "Unsupported file"
             self.ids.gr_1.color = 125, 0, 0, 1
 
+        print()
+
         name2 = self.ids.gr_2.text
+        nameb = name2.split("/")
+        nameb = nameb[-1].split(".")
+        nameb = nameb[0]
         b = []
-        if name2.find(".gv") == name1.__len__() - 3:
-            petri2(name2, "draw2", b, path)
-        elif name2.find(".txt") == name1.__len__() - 4:
-            struct_gr(name2, "draw2.gv", b, 0)
-            petri2(name2, "petri2", b, path)
+        if name2.find(".gv") == name2.__len__() - 3:
+            petri2(name2, nameb, b, path)
+        elif name2.find(".txt") == name2.__len__() - 4:
+            struct_gr(name2, nameb, b, 0)
+            print(type(b[0].next_node[0]))
+            for el in range(b.__len__()):
+                print(b[el].id)
+                print(b[el].ist)
+                print(b[el].next_node)
+
+            petri2(name2, nameb, b, path)
         elif name2 == "file2" or name2 == "file 2 missing" or \
-                    name2 == "Unsupported file" or name2 == "select Unstructured graph":
+                name2 == "Unsupported file" or name2 == "select Unstructured graph":
             self.ids.gr_2.text = "file2"
-            self.ids.gr_2.color = 255, 255, 255, 1
+            self.ids.gr_2.color = 51, 51, 51, 1
         else:
-            self.ids.gr_1.text = "Unsupported file"
-            self.ids.gr_1.color = 125, 0, 0, 1
+            self.ids.gr_2.text = "Unsupported file"
+            self.ids.gr_2.color = 125, 0, 0, 1
 
         self.overwrite_path()
 

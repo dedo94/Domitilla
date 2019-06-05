@@ -32,7 +32,7 @@ def pathfy(filepath):
 
 def draw_graph(struct, name):
     g_name = name.split(".")
-    g = Digraph(g_name[0], filename=g_name[0])                                                                               # inizializzo il disegno del grafo
+    g = Digraph(g_name[0], filename=g_name[0])                                                                          # inizializzo il disegno del grafo
     path_file = open("path.txt", 'r')
     paths = []
     for line in path_file:

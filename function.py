@@ -95,16 +95,15 @@ def to_struct(graph, gr_node):                                                  
     return gr_node
 
 
-def what_im(gr_st, node):                                                                                               # mi permette di capire cos'è il nodo
-    id = node
-    pos = search_node(gr_st, node)
+def what_im(gr_st, nodez):                                                                                               # mi permette di capire cos'è il nodo
+    pos = search_node(gr_st, nodez)
     if pos >= gr_st.__len__():
         return None
     else:
         ist = gr_st[pos].ist                                                                                            # istruzioni dei next node
         n_next = gr_st[pos].next_node.__len__()
         if ist == "+":
-            prd = pred(gr_st, id)
+            prd = pred(gr_st, nodez)
             if prd.__len__() == 1 and n_next == 1:
                 im = "transition choice"
             elif n_next > 1:

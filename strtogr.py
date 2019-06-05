@@ -8,7 +8,7 @@ def struct_gr(path, nome_grafo, struct, draw):
     id = 0                                                                                                              # id dei nodi
     set_istruction = 0                                                                                                  # indica se si tratta di un semplice set istruzioni
     case = []                                                                                                           # array dei casi
-    gr_node.append(node(id, "start", id + 1))                                                                           # creo il nodo start
+    gr_node.append(node(id, "start", str(id + 1)))                                                                           # creo il nodo start
     id += 1
     cho_start = []                                                                                                      # id inizio choice
     cho_end = []                                                                                                        # id fine choice
@@ -24,14 +24,14 @@ def struct_gr(path, nome_grafo, struct, draw):
 
             if el.count("|{") > 0 and el.strip() == "|{":                                                               # inizio di un parallelo
                 case.append("p")                                                                                        # aggiungo caso parallelo
-                gr_node.append(node(id, "|", id + 1))                                                                   # creo nodo [|]
+                gr_node.append(node(id, "|", str(id + 1)))                                                                   # creo nodo [|]
                 par_start.append(id)                                                                                    # traccio l'id del nodo di inizio del parallelo
                 id += 1
 
             elif el.count("+{") > 0 and el.strip() == "+{":                                                             # inizio di una choice
                 case.append("c")                                                                                        # aggiungo caso choice
                 cho_start.append(id)                                                                                    # traccio l'id del nodo di inizio della choice
-                gr_node.append(node(id, "+", id + 2))                                                                   # creo il nodo <+> iniziale
+                gr_node.append(node(id, "+", str(id + 2)) )                                                                  # creo il nodo <+> iniziale
                 id += 1
                 cho_end.append(id)                                                                                      # traccio l'id del nodo di fine della choice
                 gr_node.append(node(id, "+"))                                                                           # creo il nodo <+> finale
@@ -40,14 +40,14 @@ def struct_gr(path, nome_grafo, struct, draw):
             elif el.count("*{") > 0 and el.strip() == "*{":                                                             # inizio di una ricorsione
                 case.append("r")                                                                                        # aggiungo caso ricorsione
                 rec_start.append(id)                                                                                    # traccio l'id del nodo di inizio di ricorsione
-                gr_node.append(node(id, "+", id + 2))                                                                   # creo il nodo <+> iniziale
+                gr_node.append(node(id, "+", str(id + 2)))                                                                   # creo il nodo <+> iniziale
                 id += 1
                 rec_end.append(id)                                                                                      # traccio l'id del nodo di fine della recursion
-                gr_node.append(node(id, "+", id - 1))                                                                   # creo il nodo <+> finale
+                gr_node.append(node(id, "+", str(id - 1)))                                                                   # creo il nodo <+> finale
                 id += 1
 
             elif el.count("+") > 0 and el.strip() == "+":                                                               # nuovo ramo choice
-                gr_node[cho_start[-1]].next_node.append(id)                                                             # aggiungo un arco uscente dall'inizio della choice
+                gr_node[cho_start[-1]].next_node.append(str(id))                                                             # aggiungo un arco uscente dall'inizio della choice
 
             elif el.count("|") > 0 and el.strip() == "|":                                                               # nuovo ramo parallelo
                 if par_start.__len__() != par_end.__len__():                                                            # non ho ancora inserito il nodo di chiusura del parallelo
@@ -56,17 +56,17 @@ def struct_gr(path, nome_grafo, struct, draw):
                     id += 1
 
                 else:                                                                                                   # altrimenti
-                    gr_node[id - 1].next_node[0] = par_end[-1]                                                          # modifico l'arco uscente del nodo precedente
+                    gr_node[id - 1].next_node[0] = str(par_end[-1])                                                          # modifico l'arco uscente del nodo precedente
 
-                gr_node[par_start[-1]].next_node.append(id)                                                             # aggiungo un arco uscente dall'inizio del parallelo
+                gr_node[par_start[-1]].next_node.append(str(id))                                                             # aggiungo un arco uscente dall'inizio del parallelo
 
             elif el.count("}") > 0:                                                                                     # treminazione di qualcosa
                 if case.__len__() > 0:
                     tmp_case = case[-1]                                                                                 # analizzo l'ultimo caso
 
                     if tmp_case == "p":                                                                                 # termine di un parallelo
-                        gr_node[id - 1].next_node[0] = par_end[-1]                                                      # modifico l'arco uscente del nodo precedente
-                        gr_node[par_end[-1]].next_node.append(id)                                                       # faccio puntare la fine del parallelo al prossimo nodo
+                        gr_node[id - 1].next_node[0] = str(par_end[-1])                                                  # modifico l'arco uscente del nodo precedente
+                        gr_node[par_end[-1]].next_node.append(str(id))                                                      # faccio puntare la fine del parallelo al prossimo nodo
                         par_end.pop()                                                                                   # elimino l'ultimo elemento di par_end
                         par_start.pop()                                                                                 # elimino l'ultimo elemento di par_start
                         case.pop()
@@ -83,11 +83,11 @@ def struct_gr(path, nome_grafo, struct, draw):
 
                             if tmp_el.count("->") == tmp_el.count(":") == 1:                                            # termina in un altro nodo
                                 if case[-1] == "r":                                                                     # siamo nel caso di ricorsione
-                                    gr_node[rec_end[-1]].next_node.append(id)
-                                    gr_node[-1].next_node.append(rec_end[-1])
+                                    gr_node[rec_end[-1]].next_node.append(str(id))
+                                    gr_node[-1].next_node.append(str(rec_end[-1]))
 
                         elif el.count("}") > 0 and el.strip() == "}" and case[-1] == "c":
-                            gr_node[id - 1].next_node[0] = cho_end[-1]
+                            gr_node[id - 1].next_node[0] = str(cho_end[-1])
                 else:
                     gr_node.append(node(id, "end"))                                                                     # siamo alla fine di un grafo
 
@@ -108,10 +108,10 @@ def struct_gr(path, nome_grafo, struct, draw):
                             case.pop()                                                                                  # elimino l'ultimo caso
                             cho_start.pop()                                                                             # elimino gli ultimi id
                             tmp_end = cho_end.pop()
-                            gr_node[tmp_end].next_node.append(id)
+                            gr_node[tmp_end].next_node.append(str(id))
 
                         elif tmp_case == "p":                                                                           # termine di un parallelo
-                            gr_node[id - 1].next_node[0] = par_end[-1]                                                  # modifico l'arco uscente del nodo precedente
+                            gr_node[id - 1].next_node[0] = str(par_end[-1])                                                  # modifico l'arco uscente del nodo precedente
                             case.pop()                                                                                  # elimino l'ultimo caso
 
             elif el.count("->") == el.count(":") == 1:                                                                  # istruzione

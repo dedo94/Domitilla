@@ -8,12 +8,15 @@
 
 <MyLayout>:
     orientation: "vertical"
-    MyHelp:
-        anchor_x: 'right'
-        anchor_y: 'top'
+    MyNavBar:
+        cols: 2
         size_hint_y: .5
         Button:
-            text: "?"
+            text: "Clear All"
+            size_hint_x: .05
+            on_release: root.clear()
+        Button:
+            text: "Help"
             size_hint_x: .05
             on_release: root.help()
     MyLabel:
