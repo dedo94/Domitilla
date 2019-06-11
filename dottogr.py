@@ -2,6 +2,8 @@ from draw import *
 from myfunc import *
 
 
+# permette di riempire la struttura dati partendo da un grafo non strutturato
+
 def dot_not_struct(path, nome_grafo, struct, draw):
 
     file = open(path, "r")

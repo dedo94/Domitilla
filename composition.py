@@ -1,6 +1,7 @@
 from dottogr import *
 from function import *
 
+# permette di realizzae una composizione tra due grafi
 
 def composition(gr1, gr2, name, draw):
     name = name + ".gv"
@@ -50,6 +51,8 @@ def composition(gr1, gr2, name, draw):
 
     return fus_str
 
+
+# permette di realizzare la fusione di nodi all'interno di un grafo composto
 
 def refusion(gr_st, nome, node_fus, draw):
     name = nome + ".gv"                                                                                                 # modifico la lista di nodi di fusione

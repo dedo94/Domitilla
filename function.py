@@ -4,6 +4,8 @@ import random
 from myfunc import *
 
 
+# è la struttura dati che viene utilizzata per l'ottenimento della traduzione in reti di petri
+
 class Petri2:
     def __init__(self, id, im, trans, place, pin, *ist):
         self.id = id
@@ -22,18 +24,15 @@ class Petri2:
             self.p_in.append(int(pin[j]))
 
 
+# data una struttura dati di petri net e un id, restituisce la sua posizione
+
 def petripos(petri_str, id):
     for el in range(petri_str.__len__()):
         if str(petri_str[el].id) == str(id):
             return el
 
 
-class Petri:
-    def __init__(self, id, t_in, t_out):
-        self.id = id
-        self.tin = t_in
-        self.tout = t_out
-
+# genera un numero casuiale per il collocamento dei nodi della rete di petri su un piano cartesiano (inutilizzata)
 
 def rv():                                                                                                               # genera un valore casuale tra 50 e 500
     x = random.randint(50, 500)
@@ -42,11 +41,15 @@ def rv():                                                                       
     return x
 
 
+# data una struttura dati ed un id, restituisce la sua posizione
+
 def search_node(gr_st, id):                                                                                             # data una struttura e un id restituisce
     for el in range(gr_st.__len__()):                                                                                   # la posizione del nodo cercato
         if gr_st[el].id == str(id):
             return el
 
+
+# stampa tutte le informazioni contenute all'interno della struttura
 
 def st_print_all(struct):                                                                                               # mi permette di stampare tutta la struttura
     for elem in range(struct.__len__()):
@@ -57,12 +60,16 @@ def st_print_all(struct):                                                       
         print("next: " + str(struct[elem].next_node))
 
 
+# stampa le informazioni del nodo specificato
+
 def st_print_node(struct, n):                                                                                           # mi permette di stampare la struttura di un nodo dato
         i = search_node(struct, n)
         print("id: " + str(struct[i].id))
         print("label: " + str(struct[i].ist))
         print("next: " + str(struct[i].next_node))
 
+
+# dato un grafo non strutturato riempe una struttura dati
 
 def to_struct(graph, gr_node):                                                                                          # mi riempe la struttura
     file = open(graph, "r")
@@ -95,7 +102,9 @@ def to_struct(graph, gr_node):                                                  
     return gr_node
 
 
-def what_im(gr_st, nodez):                                                                                               # mi permette di capire cos'è il nodo
+# data una struttura dati e un nodo, restituice la sua istruzione
+
+def what_im(gr_st, nodez):                                                                                              # mi permette di capire cos'è il nodo
     pos = search_node(gr_st, nodez)
     if pos >= gr_st.__len__():
         return None
@@ -124,6 +133,8 @@ def what_im(gr_st, nodez):                                                      
         return im
 
 
+# dato una struttira dati ed un nodo, restituisce un array contenete le istruzioni dei nodi successivi
+
 def what_next(gr_st, node):                                                                                             # mi permette di capire cos'è il prossimo nodo
     w = search_node(gr_st, node)
     nextn = gr_st[w].next_node
@@ -134,6 +145,8 @@ def what_next(gr_st, node):                                                     
     return rest
 
 
+# data una struttura, stampa alcune informazioni
+
 def info(gr_str):                                                                                                       # stampo alcuno informazioni
     for i in range(gr_str.__len__()):
         print("-*struct*-")
@@ -143,6 +156,8 @@ def info(gr_str):                                                               
         print("-*whaaat NEXT*-")
         print(what_next(gr_str, i))
 
+
+# data una struttura ed un nodo, mi restituisce un array contenete i nodi precedenti
 
 def pred(gr_st, n):                                                                                                     # trova i predecessori
     predec = []
@@ -165,6 +180,8 @@ def order3(gr_st, arr, n, i):
         k = search_node(gr_st, arr[i])
         order3(gr_st, arr, k, i + 1)
 
+
+# funzione necessaria per la scrittura della traduzione in reti di petri
 
 def check_situation(gr_st, node):                                                                                       # in base alla situazione mi ritorna un valore differente
     # now = what_im(gr_st, node)

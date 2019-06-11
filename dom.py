@@ -21,6 +21,8 @@ from functools import partial
 kivy.require('1.10.1')
 
 
+# descrive l'interfaccia grafica del tool
+
 class MyLabel(Label):
     pass
 
@@ -249,9 +251,27 @@ class MyLayout(BoxLayout):
                 if a.count("->") == b.count("->") == 1 and a.count(":") == b.count(":") == 1:
                     cpl = [a, b]                                                                                        # coppia dei label
                     nf.append(cpl)                                                                                      # la aggiungo alla lista
-        if name1.find(".gv") == name1.__len__() - 3 and name2.find(".gv") == name2.__len__() - 3:
+
+        if name1.find(".gv") == name1.__len__() - 3:
+            if name2 == "file2" or name2 == "file 2 missing":
+                a1 = []
+                draw1 = name1.split("/")
+                draw1 = draw1[-1].split(".")
+                dot_not_struct(name1, draw1[0] + ".gv", a1, 0)
+                refusion(a1, self.ids.save_name.text, nf, 1)
+
+        elif name2.find(".gv") == name2.__len__() - 3:
+            if name1 == "file1" or name1 == "file 1 missing":
+                a2 = []
+                draw2 = name2.split("/")
+                draw2 = draw2[-1].split(".")
+                dot_not_struct(name2, draw2[0] + ".gv", a2, 0)
+                refusion(a2, self.ids.save_name.text, nf, 1)
+
+        elif name1.find(".gv") == name1.__len__() - 3 and name2.find(".gv") == name2.__len__() - 3:
             comp = composition(name1, name2, self.ids.save_name.text, 0)
             refusion(comp, self.ids.save_name.text, nf, 1)
+
         else:
             if name1 == "file1":
                 self.ids.gr_1.text = "select Unstructured graph"
