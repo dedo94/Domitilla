@@ -2,6 +2,8 @@
 from function import *
 
 
+# permette di ottenere la traduzione di un grafo in petri net
+
 def petri2(path, nome_grafo, gr_str, save):
     namefile = nome_grafo
     petri_st = []
@@ -91,16 +93,18 @@ def petri2(path, nome_grafo, gr_str, save):
             y_c += 50
 
         elif petri_st[x].im == "istruction":
-            write = "t " + str(x_c) + ".0 " + str(y_c) + ".0 t" + str(petri_st[x].tr[0]) + \
-                    " c 0 w n {" + str(petri_st[x].ist) + "} e"
+            write = "t " + str(x_c) + ".0 " + str(y_c) + ".0 {t" + str(petri_st[x].tr[0]) + \
+                    " " + str(petri_st[x].ist) + "} 0 w n"
             y_c += 50
             writetxt.append(write)
-            write = "e p" + str(petri_st[x].p_in[0]) + " t" + str(petri_st[x].tr[0]) + " 1 n"
+            write = "e p" + str(petri_st[x].p_in[0]) + " {t" + str(petri_st[x].tr[0]) + \
+                    " " + str(petri_st[x].ist) + "} 1 n"
             writetxt.append(write)
             write = "p " + str(x_c) + ".0 " + str(y_c) + ".0 p" + str(petri_st[x].pla[0]) + " 0 n"
             writetxt.append(write)
             y_c += 50
-            write = "e t" + str(petri_st[x].tr[0]) + " p" + str(petri_st[x].pla[0]) + " 1 n"
+            write = "e {t" + str(petri_st[x].tr[0]) + " " + str(petri_st[x].ist) + \
+                    "} p" + str(petri_st[x].pla[0]) + " 1 n"
             writetxt.append(write)
 
         elif petri_st[x].im == "open choice":
