@@ -56,6 +56,7 @@ SYNCHRONIZATION: Select "compose.gv" and "parallel.gv" leave the example node gi
 ## Known Issue/Bugs or Missing Function 
 
 - MULTIPLEX button it has no function yet.
+- structured Global Graph translation to Petri net doesen't work.
 
 ## Release History
 
