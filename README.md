@@ -44,7 +44,7 @@ For dismissing the selection popup click outside the selection area or click on 
 - It's possible to change the save path for output saving in "Save Path" section. Click on "find", select the desired folder and then click "OK". 
 For dismissing the selection popup click outside the selection area. Unfortunately, at the moment,  if you click "OK" without any file selected the program will crash. 
 
-- Inside "grafi" folder there are some example of graphs:
+- Inside "example/par_ch" folder there are some example of graphs:
     * The ones with _(.txt)_ extension are STRUCTURED GLOBAL GRAPH; 
     * The ones with _(.gv)_ extension are UNSTRUCTURED GLOBAL GRAPH;
     * The ones with _(.ndr)_ extension are PETRI NET. They can be opened with an external program called [TINA](http://projects.laas.fr/tina/download.php).
@@ -56,28 +56,30 @@ SYNCHRONIZATION: Select "compose.gv" and "parallel.gv" leave the example node gi
 ## Known Issue/Bugs or Missing Function 
 
 - MULTIPLEX button it has no function yet.
-- structured Global Graph translation to Petri net doesen't work.
+- structured Global Graph TRANSLATION to Petri net doesen't work.
 
 ## Release History
 
 * 2.0.2
     * ADD: Clear All button
-    * CHANGE: modified graph folder, now has a better organization
+    * CHANGE: modified graph folder, now has a better organization (renamed "grafi" in "example")
+    * CHANGE: modified label naming in Petri net translation
+    * CHANGE: now able to execute syncronization using onli one graph
     * CHANGE: fixed problem saving directory
-    * CHANGE: fixed various problem (parser, fusion, ecc.)
+    * CHANGE: fixed various problem (parser, fusion, added some more comment in-line code, ecc.)
 * 2.0.1
     * CHANGE: better path handling function
     * CHANGE: graphic bug in UI solved
 * 2.0.0
+    * ADD: help button
     * CHANGE: restyled graphic interface written using KIVY library
-    * CHANGE: cross platform support
-    * ADD: help button 
+    * CHANGE: cross platform support 
 * 1.0.0
     * ADD: graphic interface written using PySimpleGui library
 * 0.1.1
-    * more sophisticated command line function
+    * ADD: more sophisticated command line function
 * 0.1.0
-    * different command line function
+    * ADD: different command line function
 
 ## Author
 **Davide Schiavi** - [dedo94](https://github.com/dedo94) – davideschiavi94@gmail.com
