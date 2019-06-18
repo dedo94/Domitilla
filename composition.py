@@ -52,7 +52,7 @@ def composition(gr1, gr2, name, draw):
     return fus_str
 
 
-# permette di realizzare la fusione di nodi all'interno di un grafo composto
+# permette di realizzare la fusione di nodi all'interno di un grafo non strutturato gr_st
 
 def refusion(gr_st, nome, node_fus, draw):
     name = nome + ".gv"                                                                                                 # modifico la lista di nodi di fusione
