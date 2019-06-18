@@ -18,14 +18,6 @@ The main function that can be executed are:
 
 Tested on macOs Mojave 10.14.4 and Ubuntu 18.04.2 LTS
 
-## Running Domitilla
-
-Open terminal, find the right directory and execute:
-```sh
-python3 dom.py
-```
-and the tool will run.
-
 ## Syntax of Structured Global Graphs
 
 The grammar used for Structured Global Graph is based on [chorgram](https://bitbucket.org/emlio_tuosto/chorgram/wiki/Home) grammar.
@@ -43,11 +35,17 @@ G ::= (o)                                       * empty graph
 
 ```
 
-## Syntax of Untructured Global Graphs
+## Syntax of Unstructured Global Graphs
 
 The grammar used for Untructured Global Graph is [DOT](https://graphviz.gitlab.io/_pages/doc/info/lang.html) language.
 
+## Running Domitilla
 
+Open terminal, find the right directory and execute:
+```sh
+python3 dom.py
+```
+and the tool will run.
 
 ## Usage example
 
