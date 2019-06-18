@@ -10,9 +10,9 @@ The main function that can be executed are:
 - TRANSLATION TO PETRI NET: take one graph and give a relative translation in Petri net in [_.ndr_](http://projects.laas.fr/tina/manuals/formats.html#3) type supported in [TINA](http://projects.laas.fr/tina/download.php).
 
 ## Requirement
-- Python 3.7
-- Graphviz 0.10.1
-- KIVY 1.10.1
+- [Python](https://www.python.org/downloads/) (3.7)
+- [Graphviz](https://www.graphviz.org/download/) (0.10.1)
+- [KIVY](https://kivy.org/#download) (1.10.1)
 
 ## CrossPlatform?
 
