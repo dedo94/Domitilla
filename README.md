@@ -43,6 +43,11 @@ G ::= (o)                                       * empty graph
 
 ```
 
+## Syntax of Untructured Global Graphs
+
+The grammar used for Untructured Global Graph is [DOT](https://graphviz.gitlab.io/_pages/doc/info/lang.html) language.
+
+
 
 ## Usage example
 
@@ -65,7 +70,7 @@ For dismissing the selection popup click outside the selection area. Unfortunate
 - Inside "example/par_ch" folder there are some example of graphs:
     * The ones with _(.txt)_ extension are STRUCTURED GLOBAL GRAPH; 
     * The ones with _(.gv)_ extension are UNSTRUCTURED GLOBAL GRAPH;
-    * The ones with _(.ndr)_ extension are PETRI NET. They can be opened with an external program called [TINA](http://projects.laas.fr/tina/download.php).
+    * The ones with _(.ndr)_ extension are PETRI NET.
 
 ## Example
 
