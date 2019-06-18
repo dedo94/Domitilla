@@ -26,6 +26,24 @@ python3 dom.py
 ```
 and the tool will run.
 
+## Syntax of Structured Global Graphs
+
+The grammar used for Structured Global Graph is based on [chorgram](https://bitbucket.org/emlio_tuosto/chorgram/wiki/Home) grammar.
+
+However, to simplify things, Domitilla's grammar is easier.
+
+```
+G ::= (o)                                       * empty graph
+        |  Ptp -> Ptp : str                     * interaction
+        |  G '|' G                              * fork
+        |  '{' G '+' ... '+' G '}'              * choice
+        |  G ';' G                              * sequential
+        |  '*' G '@' P                          * loop
+        |  '{' G '}'
+
+```
+
+
 ## Usage example
 
 - CHOOSE FILE: Click on "select" button under the "graph1" and/or "graph2" section and browse till the desired file and then select it, next click on "OK".
