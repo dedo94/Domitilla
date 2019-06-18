@@ -16,7 +16,8 @@ The main function that can be executed are:
 
 ## CrossPlatform?
 
-Tested on macOs Mojave 10.14.4 and Ubuntu 18.04.2 LTS
+Tested on macOs Mojave 10.14.4 and Ubuntu 18.04.2 LTS.
+Not tested on windows yet.
 
 ## Syntax of Structured Global Graphs
 
