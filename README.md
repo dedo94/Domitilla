@@ -7,7 +7,7 @@ The main function that can be executed are:
 - PARALLEL COMPOSITION: take two different graphs and give their parallel composition. 
 - SYNCHRONIZATION: take two different graphs and allow to fuse a pair of nodes. 
 - MULTIPLEXING: take two different graphs and allow to do a more complex fusion.
-- TRANSLATION TO PETRI NET: take one graph and give a relative translation in Petri net in _.ndr_ type supported in [TINA](http://projects.laas.fr/tina/download.php).
+- TRANSLATION TO PETRI NET: take one graph and give a relative translation in Petri net in [_.ndr_](http://projects.laas.fr/tina/manuals/formats.html#3) type supported in [TINA](http://projects.laas.fr/tina/download.php).
 
 ## Requirement
 - Python 3.7
