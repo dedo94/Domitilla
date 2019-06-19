@@ -28,10 +28,10 @@ However, to simplify things, Domitilla's grammar is easier.
 ```
 G ::= (o)                                       * empty graph
         |  Ptp -> Ptp : str                     * interaction
-        |  G '|' G                              * fork
-        |  '{' G '+' ... '+' G '}'              * choice
+        |  '|{' G '|' G '}'                     * fork
+        |  '+{' G '+' ... '+' G '}'             * choice
         |  G ';' G                              * sequential
-        |  '*' G '@' P                          * loop
+        |  '*{' G '}' '@' P                     * loop
         |  '{' G '}'
 
 ```
