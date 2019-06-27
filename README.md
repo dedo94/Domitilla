@@ -102,6 +102,21 @@ SYNCHRONIZATION: Select "compose.gv" and "parallel.gv" leave the example node gi
     * ADD: more sophisticated command line function
 * 0.1.0
     * ADD: different command line function
+    
+## File List
+
+* composition.py: contain two big functions; 
+    * composition(gr1, gr2, name, draw): merge two graph in one.
+        * gr1: first graph;
+        * gr2: second graph;
+        * name: name of the composition;
+        * draw: 1 give as output also the PDF whit the result, 0 otherwise.
+    * refusion(gr_st, nome, node_fus, draw): provide the syncronization of the node inside of one graph.
+        * gr_str: new empty list;
+        * nome: name of the composition;
+        * node_fus: list of the node waiting for syncronization;
+        * draw: 1 give as output also the PDF whit the result, 0 otherwise.
+    
 
 ## Author
 **Davide Schiavi** - [dedo94](https://github.com/dedo94) – davideschiavi94@gmail.com
