@@ -105,7 +105,7 @@ SYNCHRONIZATION: Select "compose.gv" and "parallel.gv" leave the example node gi
     
 ## File List
 
-* composition.py: contain two big functions; 
+* composition.py: contain two functions. 
     * composition(gr1, gr2, name, draw): merge two graph in one.
         * gr1: first graph;
         * gr2: second graph;
@@ -113,9 +113,28 @@ SYNCHRONIZATION: Select "compose.gv" and "parallel.gv" leave the example node gi
         * draw: 1 give as output also the PDF whit the result, 0 otherwise.
     * refusion(gr_st, nome, node_fus, draw): provide the syncronization of the node inside of one graph.
         * gr_str: new empty list;
-        * nome: name of the composition;
+        * nome: name of the fusion;
         * node_fus: list of the node waiting for syncronization;
         * draw: 1 give as output also the PDF whit the result, 0 otherwise.
+
+* convert.py: contain one fuction.
+    *  petri2(path, nome_grafo, gr_str, save): provide the translation of an Unstructured Global Graph in Perti net:
+       * paht: path of the original file (at the moment unsed, this parameter will be removed soon);
+       * nome_grafo: name of the graph;
+       * gr_str: new empty list;
+       * save: path of the save folder.
+
+* dom.py: contain a lot of function required for the GUI.
+
+* domitilla.kv: it's a style file required by kivy for the GUI.
+
+* dottogr.py: contain one function.
+    * dot_not_struct(path, nome_grafo, struct, draw): fill an empty list with data belonging to an Unstructured Global Graph:
+        * path: path of the graph;
+        * nome_grafo: name of the graph;
+        * struct: new empty list;
+        * draw: 1 give as output also the PDF whit the result, 0 otherwise.
+        
     
 
 ## Author
