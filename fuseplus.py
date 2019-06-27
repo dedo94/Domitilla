@@ -4,14 +4,14 @@ from composition import *
 
 
 cmp = []                                                                                                                # struttura
-dot_not_struct("grafi/exp.gv", "exp.gv", cmp, 0)
+dot_not_struct("example/prove/composition.gv", "composition.gv", cmp, 0)
 n1 = "K"
 n2 = "H"
 max_id = max_id(cmp)
 complex_fus = []                                                                                                        # struttura della fusione
 id_pair = []                                                                                                            # id delle coppie
 pos_pair = []                                                                                                           # posizione delle coppie nella struttura originale
-lab = []
+lab = []                                                                                                                # label
 pos_list = []
 for el in range(cmp.__len__()):
     if 0 < cmp[el].ist.find("->") < cmp[el].ist.find(":"):
@@ -50,10 +50,13 @@ for el in range(cmp.__len__()):
                         pos_list.append(el)
                         pos_list.append(ele)
                         lab.append(str(sender1 + " -> " + recv2 + " : " + msg2))
-
+print("label:")
 print(lab)
+print("id_pair:")
 print(id_pair)
+print("pos_pair:")
 print(pos_pair)
+print("pos_list:")
 print(pos_list)
 spider = []
 mod_list = []
@@ -89,5 +92,5 @@ for el in range(cmp.__len__()):
         tot.append(cmp[el])
 for el in range(spider.__len__()):
     tot.append(spider[el])
-draw_graph(tot, "tot")
+draw_graph(tot, "tot.gv")
 
