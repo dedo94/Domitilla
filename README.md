@@ -118,7 +118,7 @@ SYNCHRONIZATION: Select "compose.gv" and "parallel.gv" leave the example node gi
         * draw: 1 give as output also the PDF whit the result, 0 otherwise.
 
 * convert.py: contain one fuction.
-    *  petri2(path, nome_grafo, gr_str, save): provide the translation of an Unstructured Global Graph in Perti net:
+    *  petri2(path, nome_grafo, gr_str, save): provide the translation of an Unstructured Global Graph in Perti net.
        * paht: path of the original file (at the moment unsed, this parameter will be removed soon);
        * nome_grafo: name of the graph;
        * gr_str: new empty list;
@@ -129,12 +129,29 @@ SYNCHRONIZATION: Select "compose.gv" and "parallel.gv" leave the example node gi
 * domitilla.kv: it's a style file required by kivy for the GUI.
 
 * dottogr.py: contain one function.
-    * dot_not_struct(path, nome_grafo, struct, draw): fill an empty list with data belonging to an Unstructured Global Graph:
+    * dot_not_struct(path, nome_grafo, struct, draw): fill an empty list with data belonging to an Unstructured Global Graph.
         * path: path of the graph;
         * nome_grafo: name of the graph;
         * struct: new empty list;
         * draw: 1 give as output also the PDF whit the result, 0 otherwise.
         
+* draw.py: contain one function:
+    * draw_graph(struct, name): provide a PDF with a drowing of the graph.
+         * struct: full list of the graph;
+         * nome_grafo: name of the graph;
+         
+* function.py: contain a lot of side function.
+
+* myfunc.py: contain a lot of side function.
+
+* strtogr.py: contain one function:
+    * struct_gr(path, nome_grafo, struct, draw): fill an empty list with data belonging to a Structured Global Graph.
+        * path: path of the graph;
+        * nome_grafo: name of the graph;
+        * struct: new empty list;
+        * draw: 1 give as output also the PDF whit the result, 0 otherwise.
+        
+* path.txt: text file that memorize some usefull path.
     
 
 ## Author
