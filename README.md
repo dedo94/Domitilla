@@ -151,6 +151,8 @@ SYNCHRONIZATION: Select "compose.gv" and "parallel.gv" leave the example node gi
         * struct: new empty list;
         * draw: 1 give as output also the PDF whit the result, 0 otherwise.
         
+* fuseplus.py: new file for syncronization; still under development.
+        
 * path.txt: text file that memorize some usefull path.
     
 
