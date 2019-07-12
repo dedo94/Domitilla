@@ -117,3 +117,5 @@ def refusion(gr_st, nome, node_fus, draw):
 
     if draw:
         draw_graph(final_st, name)
+    else:
+        return final_st
