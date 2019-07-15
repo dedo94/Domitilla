@@ -59,7 +59,7 @@ For dismissing the selection popup click outside the selection area or click on 
 
 - SYNCRONIZATION: Select two graphs. Manually write into the dedicated text area the pair of nodes that you would fuse. 
 There are two type of input accepted.
-    * First: a couple of node, for example "A -> H : n ; K -> B : n".
+    * First: a couple of node for each row, for example "A -> H : n ; K -> B : n".
     * [NEW] Second: a couple of partecipant, for example "[A,B]"
 
 - MULTIPLEX: Select two graphs. Manually write into the dedicated text area the pair of nodes that you would fuse. Following the given example for the correct syntax.
