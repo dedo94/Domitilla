@@ -57,7 +57,10 @@ For dismissing the selection popup click outside the selection area or click on 
 
 - PARALLEL COMPOSITION: select two graphs.
 
-- SYNCRONIZATION: Select two graphs. Manually write into the dedicated text area the pair of nodes that you would fuse. Following the given example for the correct syntax.
+- SYNCRONIZATION: Select two graphs. Manually write into the dedicated text area the pair of nodes that you would fuse. 
+There are two type of input accepted.
+    * First: a couple of node, for example "A -> H : n ; K -> B : n".
+    * [NEW] Second: a couple of partecipant, for example "[A,B]"
 
 - MULTIPLEX: Select two graphs. Manually write into the dedicated text area the pair of nodes that you would fuse. Following the given example for the correct syntax.
  
@@ -77,31 +80,34 @@ SYNCHRONIZATION: Select "compose.gv" and "parallel.gv" leave the example node gi
 
 ## Known Issue/Bugs or Missing Function 
 
+- SYNCHRONIZATION has undergone some changes, and isn't well tested. 
 - MULTIPLEX button it has no function yet.
 - structured Global Graph TRANSLATION to Petri net doesen't work.
 
 ## Release History
 
+* 2.0.3
+    * CHANGE: improved SYNCHRONIZATION, now recognize two different tipe of input and execute different operation. Check usage example for more detail.
 * 2.0.2
-    * ADD: Clear All button
-    * CHANGE: modified graph folder, now has a better organization (renamed "grafi" in "example")
-    * CHANGE: modified label naming in Petri net translation
-    * CHANGE: now able to execute syncronization using onli one graph
-    * CHANGE: fixed problem saving directory
-    * CHANGE: fixed various problem (parser, fusion, added some more comment in-line code, ecc.)
+    * ADD: Clear All button.
+    * CHANGE: modified graph folder, now has a better organization (renamed "grafi" in "example").
+    * CHANGE: modified label naming in Petri net translation.
+    * CHANGE: now able to execute syncronization using onli one graph.
+    * CHANGE: fixed problem saving directory.
+    * CHANGE: fixed various problem (parser, fusion, added some more comment in-line code, ecc.).
 * 2.0.1
-    * CHANGE: better path handling function
-    * CHANGE: graphic bug in UI solved
+    * CHANGE: better path handling function.
+    * CHANGE: graphic bug in UI solved.
 * 2.0.0
-    * ADD: help button
-    * CHANGE: restyled graphic interface written using KIVY library
-    * CHANGE: cross platform support 
+    * ADD: help button.
+    * CHANGE: restyled graphic interface written using KIVY library.
+    * CHANGE: cross platform support.
 * 1.0.0
-    * ADD: graphic interface written using PySimpleGui library
+    * ADD: graphic interface written using PySimpleGui library.
 * 0.1.1
-    * ADD: more sophisticated command line function
+    * ADD: more sophisticated command line function.
 * 0.1.0
-    * ADD: different command line function
+    * ADD: different command line function.
     
 ## File List
 
