@@ -157,7 +157,11 @@ SYNCHRONIZATION: Select "compose.gv" and "parallel.gv" leave the example node gi
         * struct: new empty list;
         * draw: 1 give as output also the PDF whit the result, 0 otherwise.
         
-* fuseplus.py: new file for syncronization; still under development.
+* fuseplus.py: contain one function:
+    * fuseplus(cmp, n1, n2): transform two partecipant in a list that contain every possible couple of fusion.
+       * cmp: struct that contain one graph;
+       * n1: first partecipant,
+       * n2; second partecipant.
         
 * path.txt: text file that memorize some usefull path.
     
