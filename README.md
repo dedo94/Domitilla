@@ -88,6 +88,7 @@ SYNCHRONIZATION: Select "compose.gv" and "parallel.gv" leave the example node gi
 
 * 2.0.3
     * CHANGE: improved SYNCHRONIZATION, now recognize two different tipe of input and execute different operation. Check usage example for more detail.
+    * CHANGE: added some popup messages, warnings and errors.
 * 2.0.2
     * ADD: Clear All button.
     * CHANGE: modified graph folder, now has a better organization (renamed "grafi" in "example").
