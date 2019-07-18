@@ -185,6 +185,8 @@ class MyLayout(BoxLayout):
     def compose(self):
         name1 = self.ids.gr_1.text
         name2 = self.ids.gr_2.text
+        no_gr = 0
+        err_gr = 0
         if name1.find(".gv") == name1.__len__() - 3 and name2.find(".gv") == name2.__len__() - 3:
             composition(name1, name2, self.ids.save_name.text, 1)
 
@@ -193,16 +195,38 @@ class MyLayout(BoxLayout):
                     name1 == "Unsupported file" or name1 == "select Unstructured graph":
                 self.ids.gr_1.text = "file 1 missing"
                 self.ids.gr_1.color = 125, 0, 0, 1
+                no_gr += 1
             elif name1.find(".gv") < name1.__len__() - 3:
                 self.ids.gr_1.text = "Unsupported file"
                 self.ids.gr_1.color = 125, 0, 0, 1
+                err_gr += 1
             if name2 == "file2" or name2 == "file 2 missing" or \
                     name2 == "Unsupported file" or name2 == "select Unstructured graph":
                 self.ids.gr_2.text = "file 2 missing"
                 self.ids.gr_2.color = 125, 0, 0, 1
+                no_gr += 1
             elif name2.find(".gv") < name1.__len__() - 3:
                 self.ids.gr_2.text = "Unsupported file"
                 self.ids.gr_2.color = 125, 0, 0, 1
+                err_gr += 1
+
+        if no_gr == err_gr == 1:
+            pop = Popup(title="CHECK INPUT",
+                        content=Label(text='Please, check all the input data.\n\nClick outside for dismiss.'),
+                        size_hint=(None, None), size=(500, 400))
+            pop.open()
+
+        elif no_gr > 0 and err_gr == 0:
+            pop = Popup(title="MISSING GRAPHS",
+                        content=Label(text='Select two graph.\n\nClick outside for dismiss.'),
+                        size_hint=(None, None), size=(400, 400))
+            pop.open()
+
+        elif no_gr == 0 and err_gr > 0:
+            pop = Popup(title="ERROR",
+                        content=Label(text='Unsupporte graphs type.\n\nClick outside for dismiss.'),
+                        size_hint=(None, None), size=(400, 400))
+            pop.open()
 
         self.overwrite_path()
 
@@ -210,6 +234,7 @@ class MyLayout(BoxLayout):
         name1 = self.ids.gr_1.text
         draw1 = name1.split("/")
         draw1 = draw1[-1].split(".")
+        err1 = 0
         if name1.find(".gv") == name1.__len__() - 3:
             a1 = []
             dot_not_struct(name1, draw1[0] + ".gv", a1, 1)
@@ -220,13 +245,16 @@ class MyLayout(BoxLayout):
                     name1 == "Unsupported file" or name1 == "select Unstructured graph":
             self.ids.gr_1.text = "file1"
             self.ids.gr_1.color = 51, 51, 51, 1
+            err1 = 1
         else:
-            self.ids.gr_2.text = "Unsupported file"
-            self.ids.gr_2.color = 125, 0, 0, 1
+            self.ids.gr_1.text = "Unsupported file"
+            self.ids.gr_1.color = 125, 0, 0, 1
+            err1 = 2
 
         name2 = self.ids.gr_2.text
         draw2 = name2.split("/")
         draw2 = draw2[-1].split(".")
+        err2 = 0
         if name2.find(".gv") == name2.__len__() - 3:
             b1 = []
             dot_not_struct(name2, draw2[0] + ".gv", b1, 1)
@@ -237,9 +265,22 @@ class MyLayout(BoxLayout):
                     name2 == "Unsupported file" or name2 == "select Unstructured graph":
             self.ids.gr_2.text = "file2"
             self.ids.gr_2.color = 51, 51, 51, 1
+            err2 = 1
         else:
             self.ids.gr_2.text = "Unsupported file"
             self.ids.gr_2.color = 125, 0, 0, 1
+            err2 = 2
+
+        if err1 == err2 == 1:
+            pop = Popup(title="MISSING GRAPHS",
+                        content=Label(text='Select at least one graph.\n\nClick outside for dismiss.'),
+                        size_hint=(None, None), size=(400, 400))
+            pop.open()
+        elif err1 == 2 or err2 == 2:
+            pop = Popup(title="ERROR",
+                        content=Label(text='Unsupporte graphs type.\n\nClick outside for dismiss.'),
+                        size_hint=(None, None), size=(400, 400))
+            pop.open()
 
         self.overwrite_path()
 
@@ -250,14 +291,14 @@ class MyLayout(BoxLayout):
             node_str = self.ids.fuse_area.text
             nf = []                                                                                                     # lista con le coppie di label da fondere
             part = []                                                                                                   # lista che conterrà i partecipanti
-            method1 = False
-            method2 = False
+            method1 = 0
+            method2 = 0
             nfline = node_str.split("\n")
 
             for el in range(nfline.__len__()):
 
                 if nfline[el].count(";"):
-                    method1 = True
+                    method1 = 1
                     couple = nfline[el].split(";")
                     a = couple[0].strip()                                                                               # primo label
                     b = couple[1].strip()                                                                               # secondo label
@@ -266,7 +307,7 @@ class MyLayout(BoxLayout):
                         nf.append(cpl)                                                                                  # la aggiungo alla lista
 
                 if nfline[el].count("[") == nfline[el].count(",") == nfline[el].count("]") == 1:
-                    method2 = True
+                    method2 = 1
                     half = nfline[el].split(",")
                     half1 = half[0].strip("[")
                     half1 = half1.strip()
@@ -275,9 +316,15 @@ class MyLayout(BoxLayout):
                     half2 = half2.strip()
                     part.append(half2)
 
-            if method2 is True and method1 is True:
+            if method2 == method1 == 1:
                 popupz = Popup(title="Synchronization methods",
                                content=Label(text='Two different Synchronization methods detected, please use only one.'
+                                                  '\n\nClick outside for dismiss.'), size_hint=(None, None),
+                               size=(1000, 400))
+                popupz.open()
+            elif method2 == method1 == 0:
+                popupz = Popup(title="Synchronization methods",
+                               content=Label(text='No Synchronization methods detected, please check the input.'
                                                   '\n\nClick outside for dismiss.'), size_hint=(None, None),
                                size=(1000, 400))
                 popupz.open()
@@ -360,6 +407,7 @@ class MyLayout(BoxLayout):
             namea = name1.split("/")
             namea = namea[-1].split(".")
             namea = namea[0]
+            err1 = 0
             a = []
             if name1.find(".gv") == name1.__len__() - 3:
                 dot_not_struct(name1, namea + ".gv", a, 0)
@@ -371,14 +419,17 @@ class MyLayout(BoxLayout):
                     name1 == "Unsupported file" or name1 == "select Unstructured graph":
                 self.ids.gr_1.text = "file1"
                 self.ids.gr_1.color = 51, 51, 51, 1
+                err1 = 1
             else:
                 self.ids.gr_1.text = "Unsupported file"
                 self.ids.gr_1.color = 125, 0, 0, 1
+                err1 = 2
 
             name2 = self.ids.gr_2.text
             nameb = name2.split("/")
             nameb = nameb[-1].split(".")
             nameb = nameb[0]
+            err2 = 0
             b = []
             if name2.find(".gv") == name2.__len__() - 3:
                 petri2(name2, nameb, b, path)
@@ -389,9 +440,22 @@ class MyLayout(BoxLayout):
                     name2 == "Unsupported file" or name2 == "select Unstructured graph":
                 self.ids.gr_2.text = "file2"
                 self.ids.gr_2.color = 51, 51, 51, 1
+                err2 = 1
             else:
                 self.ids.gr_2.text = "Unsupported file"
                 self.ids.gr_2.color = 125, 0, 0, 1
+                err2 = 2
+
+            if err1 == err2 == 1:
+                pop = Popup(title="MISSING GRAPHS",
+                            content=Label(text='Select at least one graph.\n\nClick outside for dismiss.'),
+                            size_hint=(None, None), size=(400, 400))
+                pop.open()
+            elif err1 == 2 or err2 == 2:
+                pop = Popup(title="ERROR",
+                            content=Label(text='Unsupporte graphs type.\n\nClick outside for dismiss.'),
+                            size_hint=(None, None), size=(400, 400))
+                pop.open()
 
             self.overwrite_path()
 
