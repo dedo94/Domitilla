@@ -76,7 +76,7 @@ For dismissing the selection popup click outside the selection area. Unfortunate
 
 ## Example
 
-SYNCHRONIZATION: Select "compose.gv" and "parallel.gv" leave the example node given in the text area and click on syncronization. The result will be a simple fusion of the decribed node.
+SYNCHRONIZATION: Select "compose.gv" and "parallel.gv" leave onli one of the teo given example (delete one) in the text area and click on syncronization. The result will be a simple fusion of the described node.
 
 ## Known Issue/Bugs or Missing Function 
 
