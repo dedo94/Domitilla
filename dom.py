@@ -333,10 +333,10 @@ class MyLayout(BoxLayout):
 
                 if name1.find(".gv") == name1.__len__() - 3 and name2.find(".gv") == name2.__len__() - 3:
                     comp = composition(name1, name2, self.ids.save_name.text, 0)
-                    if method1 is True:
+                    if method1 == 1:
                         refusion(comp, self.ids.save_name.text, nf, 1)
 
-                    elif method2 is True:
+                    elif method2 == 1:
                         cp_list = fuseplus(comp, part[0], part[1])
                         refusion(comp, self.ids.save_name.text, cp_list, 1)
 
@@ -347,10 +347,10 @@ class MyLayout(BoxLayout):
                         draw1 = draw1[-1].split(".")
                         dot_not_struct(name1, draw1[0] + ".gv", a1, 0)
 
-                        if method1:
+                        if method1 == 1:
                                 refusion(a1, self.ids.save_name.text, nf, 1)
 
-                        elif method2:
+                        elif method2 == 1:
                             cp_list = fuseplus(a1, part[0], part[1])
                             refusion(a1, self.ids.save_name.text, cp_list, 1)
 
@@ -360,10 +360,10 @@ class MyLayout(BoxLayout):
                         draw2 = name2.split("/")
                         draw2 = draw2[-1].split(".")
                         dot_not_struct(name2, draw2[0] + ".gv", a2, 0)
-                        if method1:
+                        if method1 == 1:
                             refusion(a2, self.ids.save_name.text, nf, 1)
 
-                        elif method2:
+                        elif method2 == 1:
                             cp_list = fuseplus(a2, part[0], part[1])
                             refusion(a2, self.ids.save_name.text, cp_list, 1)
 
@@ -453,7 +453,7 @@ class MyLayout(BoxLayout):
                 pop.open()
             elif err1 == 2 or err2 == 2:
                 pop = Popup(title="ERROR",
-                            content=Label(text='Unsupporte graphs type.\n\nClick outside for dismiss.'),
+                            content=Label(text='Unsupported graphs type.\n\nClick outside for dismiss.'),
                             size_hint=(None, None), size=(400, 400))
                 pop.open()
 
