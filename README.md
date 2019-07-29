@@ -62,7 +62,7 @@ There are two type of input accepted.
     * First: a couple of node for each row, for example "A -> H : n ; K -> B : n".
     * [NEW] Second: a couple of partecipant, for example "[A,B]"
 
-- MULTIPLEX: Select two graphs. Manually write into the dedicated text area the pair of nodes that you would fuse. Following the given example for the correct syntax.
+- MULTIPLEX: Select one or two graphs. Manually write into the dedicated text area the pair of partecipant that you would fuse; for example "[A,B]". Follow the given example for the correct syntax.
  
 - TRANSLATE TO PETRI NET: Select at least one graph.
 
@@ -81,12 +81,13 @@ SYNCHRONIZATION: Select "compose.gv" and "parallel.gv" leave onli one of the teo
 ## Known Issue/Bugs or Missing Function 
 
 - SYNCHRONIZATION has undergone some changes, and isn't well tested. 
-- MULTIPLEX button it has no function yet.
+- MULTIPLEX just added but not well tested.
 - structured Global Graph TRANSLATION to Petri net doesen't work.
 
 ## Release History
 
 * 2.0.3
+    * ADD: MULTIPLEX function
     * ADD: popup messages, warnings and errors.
     * CHANGE: improved SYNCHRONIZATION, now recognize two different tipe of input and execute different operation. Check usage example for more detail.
 * 2.0.2
@@ -161,8 +162,13 @@ SYNCHRONIZATION: Select "compose.gv" and "parallel.gv" leave onli one of the teo
 * fuseplus.py: contain one function:
     * fuseplus(cmp, n1, n2): transform two partecipant in a list that contain every possible couple of fusion.
        * cmp: struct that contain one graph;
-       * n1: first partecipant,
+       * n1: first partecipant;
        * n2; second partecipant.
+* multi.py: contain one function:
+    * multi(str, pt1, pt2): allow to create a graph with multiplex.
+        * str: struct that contain one graph;
+        * pt1: first partecipant;
+        * pt2; second partecipant.
         
 * path.txt: text file that memorize some usefull path.
     
