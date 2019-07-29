@@ -1,24 +1,20 @@
 from dottogr import *
 from function import *
 
-struct = []
-dot_not_struct("example/prove/prova.gv", "ciao", struct, 0)
 
-
-def multi(str):
+def multi(str, pt1, pt2):
     new = []
     ist_list = []
     qty_list = []
     for el in range(str.__len__()):
 
         if 0 < str[el].ist.find("->") < str[el].ist.find(":"):
-            if struct[el].ist not in ist_list:
-                ist_list.append(struct[el].ist)
-                qty_list.append(1)
-            else:
-                qty_list[ist_list.index(str[el].ist)] += 1
-    print(ist_list)
-    print(qty_list)
+            if str[el].ist.find(pt1) >-1 and str[el].ist.find(pt2) > -1:
+                if str[el].ist not in ist_list:
+                    ist_list.append(str[el].ist)
+                    qty_list.append(1)
+                else:
+                    qty_list[ist_list.index(str[el].ist)] += 1
 
     maxid = max_id(str)
     mu_id = []
@@ -31,9 +27,7 @@ def multi(str):
         demu_id.append(maxid)
 
     for el in range(str.__len__()):
-        print(str[el].id)
-
-        if str[el].ist.find("->") == str[el].ist.find(":") == -1:                                                       # non è l'istruzione del multi
+        if str[el].ist not in ist_list:                                                                                 # non è l'istruzione del multi
             if str[el].next_node.__len__() > 0:
                 for ele in range(str[el].next_node.__len__()):
                     idz = search_node(str, str[el].next_node[ele])
@@ -50,6 +44,8 @@ def multi(str):
                         new[-1].next_node.append(new_next[n])
             else:
                 new.append(node(str[el].id, str[el].ist))
+                for n in range(str[el].next_node.__len__()):
+                    new[-1].next_node.append(str[el].next_node[n])
 
         elif str[el].ist in ist_list:                                                                                   # è l'istruzione che va nel multi
             what_multi = ist_list.index(str[el].ist)
@@ -60,7 +56,3 @@ def multi(str):
 
     draw_graph(new, "new-prova")
     return new
-
-
-new_str = multi(struct)
-

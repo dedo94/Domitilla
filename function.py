@@ -45,7 +45,7 @@ def rv():                                                                       
 
 def search_node(gr_st, id):                                                                                             # data una struttura e un id restituisce
     for el in range(gr_st.__len__()):                                                                                   # la posizione del nodo cercato
-        if gr_st[el].id == str(id):
+        if str(gr_st[el].id) == str(id):
             return el
 
 

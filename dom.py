@@ -7,6 +7,7 @@ from strtogr import *
 from convert import *
 from composition import *
 from fuseplus import *
+from multi import *
 
 from kivy.app import App
 from kivy.uix.anchorlayout import AnchorLayout
@@ -465,6 +466,74 @@ class MyLayout(BoxLayout):
                                               '\n\nClick outside for dismiss.'),
                            size_hint=(None, None), size=(1000, 400))
             popupz.open()
+
+    def multi(self):
+        try:
+            name1 = self.ids.gr_1.text
+            name2 = self.ids.gr_2.text
+            node_str = self.ids.fuse_area.text
+            nf = []  # lista con le coppie di label da fondere
+            part = []  # lista che conterrà i partecipanti
+            method1 = 0
+            method2 = 0
+            nfline = node_str.split("\n")
+
+            for el in range(nfline.__len__()):
+
+                if nfline[el].count(";"):
+                    method1 = 1
+
+                if nfline[el].count("[") == nfline[el].count(",") == nfline[el].count("]") == 1:
+                    method2 = 1
+                    half = nfline[el].split(",")
+                    half1 = half[0].strip("[")
+                    half1 = half1.strip()
+                    part.append(half1)
+                    half2 = half[1].strip("]")
+                    half2 = half2.strip()
+                    part.append(half2)
+
+            if method2 == method1 == 1:
+                popupz = Popup(title="Two methods detected",
+                               content=Label(text='Two different Synchronization methods detected, will be used method 2.'
+                                                  '\n\nClick outside to continue.'), size_hint=(None, None),
+                               size=(1000, 400))
+                popupz.open()
+
+            elif method2 == method1 == 0:
+                popupz = Popup(title="Synchronization methods",
+                               content=Label(text='No Synchronization methods detected, please check the input.'
+                                                  '\n\nClick outside for dismiss.'), size_hint=(None, None),
+                               size=(1000, 400))
+                popupz.open()
+
+            if name1.find(".gv") == name1.__len__() - 3 and name2.find(".gv") == name2.__len__() - 3:                   # due file
+                comp = composition(name1, name2, self.ids.save_name.text, 0)
+                cp_list = fuseplus(comp, part[0], part[1])
+                a = refusion(comp, self.ids.save_name.text, cp_list, 0)
+                multi(a, part[0], part[1])
+
+            elif name1.find(".gv") == name1.__len__() - 3:                                                              # primo file
+                a1 = []
+                draw1 = name1.split("/")
+                draw1 = draw1[-1].split(".")
+                dot_not_struct(name1, draw1[0] + ".gv", a1, 0)
+                cp_list = fuseplus(a1, part[0], part[1])
+                a = refusion(a1, self.ids.save_name.text, cp_list, 0)
+                multi(a, part[0], part[1])
+
+            elif name2.find(".gv") == name2.__len__() - 3:                                                              # secondo file
+                a2 = []
+                draw2 = name2.split("/")
+                draw2 = draw2[-1].split(".")
+                dot_not_struct(name1, draw2[0] + ".gv", a2, 0)
+                cp_list = fuseplus(a2, part[0], part[1])
+                a = refusion(a2, self.ids.save_name.text, cp_list, 0)
+
+                multi(a, part[0], part[1])
+
+        except:
+            self.errpop()
 
     def help(self):
         file = "guide.pdf"
