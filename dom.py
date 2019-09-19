@@ -3,11 +3,12 @@ import platform
 import shlex
 import subprocess
 
-from strtogr import *
+from parse_and_draw import *
 from convert import *
 from composition import *
 from fuseplus import *
 from multi import *
+from draw import *
 
 from kivy.app import App
 from kivy.uix.anchorlayout import AnchorLayout
@@ -240,8 +241,7 @@ class MyLayout(BoxLayout):
             a1 = []
             dot_not_struct(name1, draw1[0] + ".gv", a1, 1)
         elif name1.find(".txt") == name1.__len__() - 4:
-            a2 = []
-            struct_gr(name1, draw1[0] + ".gv", a2, 1)
+            parse_and_draw(name1, draw1[0] + ".gv")
         elif name1 == "file1" or name1 == "file 1 missing" or \
                     name1 == "Unsupported file" or name1 == "select Unstructured graph":
             self.ids.gr_1.text = "file1"
@@ -261,9 +261,9 @@ class MyLayout(BoxLayout):
             dot_not_struct(name2, draw2[0] + ".gv", b1, 1)
         elif name2.find(".txt") == name2.__len__() - 4:
             b2 = []
-            struct_gr(name2, draw2[0] + ".gv", b2, 1)
+            parse_and_draw(name2, draw2[0] + ".gv")
         elif name2 == "file2" or name2 == "file 2 missing" or \
-                    name2 == "Unsupported file" or name2 == "select Unstructured graph":
+                name2 == "Unsupported file" or name2 == "select Unstructured graph":
             self.ids.gr_2.text = "file2"
             self.ids.gr_2.color = 51, 51, 51, 1
             err2 = 1
@@ -279,7 +279,7 @@ class MyLayout(BoxLayout):
             pop.open()
         elif err1 == 2 or err2 == 2:
             pop = Popup(title="ERROR",
-                        content=Label(text='Unsupporte graphs type.\n\nClick outside for dismiss.'),
+                        content=Label(text='Unsupported graphs type.\n\nClick outside for dismiss.'),
                         size_hint=(None, None), size=(400, 400))
             pop.open()
 

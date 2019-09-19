@@ -13,6 +13,7 @@ The main function that can be executed are:
 - [Python](https://www.python.org/downloads/) (3.7)
 - [Graphviz](https://www.graphviz.org/download/) (0.10.1)
 - [KIVY](https://kivy.org/#download) (1.10.1)
+- [ANTLR4](https://pypi.org/project/antlr4-python3-runtime/) (4.7.2)
 
 ## CrossPlatform?
 
@@ -22,19 +23,7 @@ Not tested on windows yet.
 ## Syntax of Structured Global Graphs
 
 The grammar used for Structured Global Graph is based on [chorgram](https://bitbucket.org/emlio_tuosto/chorgram/wiki/Home) grammar.
-
-However, to simplify things, Domitilla's grammar is easier.
-
-```
-G ::= (o)                                       * empty graph
-        |  Ptp -> Ptp : str                     * interaction
-        |  '|{' G '|' G '}'                     * fork
-        |  '+{' G '+' ... '+' G '}'             * choice
-        |  G ';' G                              * sequential
-        |  '*{' G '}' '@' P                     * loop
-        |  '{' G '}'
-
-```
+See /global_graph_parser/G_grammar.g4 for the definition.
 
 ## Syntax of Unstructured Global Graphs
 
@@ -76,16 +65,17 @@ For dismissing the selection popup click outside the selection area. Unfortunate
 
 ## Example
 
-SYNCHRONIZATION: Select "compose.gv" and "parallel.gv" leave onli one of the teo given example (delete one) in the text area and click on syncronization. The result will be a simple fusion of the described node.
+SYNCHRONIZATION: Select "compose.gv" and "parallel.gv" leave only one of the teo given example (delete one) in the text area and click on syncronization. The result will be a simple fusion of the described node.
 
 ## Known Issue/Bugs or Missing Function 
 
 - SYNCHRONIZATION has undergone some changes, and isn't well tested. 
 - MULTIPLEX just added but not well tested.
-- structured Global Graph TRANSLATION to Petri net doesen't work.
+- structured Global Graph TRANSLATION to Petri net doesn't work.
 
 ## Release History
-
+* 2.0.4
+    * CHANGE: Structured Global Graph now are recognized by a parser made with ANTLR4.
 * 2.0.3
     * ADD: MULTIPLEX function
     * ADD: popup messages, warnings and errors.
@@ -94,7 +84,7 @@ SYNCHRONIZATION: Select "compose.gv" and "parallel.gv" leave onli one of the teo
     * ADD: Clear All button.
     * CHANGE: modified graph folder, now has a better organization (renamed "grafi" in "example").
     * CHANGE: modified label naming in Petri net translation.
-    * CHANGE: now able to execute syncronization using onli one graph.
+    * CHANGE: now able to execute syncronization using only one graph.
     * CHANGE: fixed problem saving directory.
     * CHANGE: fixed various problem (parser, fusion, added some more comment in-line code, ecc.).
 * 2.0.1
@@ -125,8 +115,8 @@ SYNCHRONIZATION: Select "compose.gv" and "parallel.gv" leave onli one of the teo
         * node_fus: list of the node waiting for syncronization;
         * draw: 1 give as output also the PDF whit the result, 0 otherwise.
 
-* convert.py: contain one fuction.
-    *  petri2(path, nome_grafo, gr_str, save): provide the translation of an Unstructured Global Graph in Perti net.
+* convert.py: contain one function.
+    *  petri2(path, nome_grafo, gr_str, save): provide the translation of an Unstructured Global Graph in Petri net.
        * paht: path of the original file (at the moment unsed, this parameter will be removed soon);
        * nome_grafo: name of the graph;
        * gr_str: new empty list;
@@ -144,7 +134,7 @@ SYNCHRONIZATION: Select "compose.gv" and "parallel.gv" leave onli one of the teo
         * draw: 1 give as output also the PDF whit the result, 0 otherwise.
         
 * draw.py: contain one function:
-    * draw_graph(struct, name): provide a PDF with a drowing of the graph.
+    * draw_graph(struct, name): provide a PDF with a drawing of the graph.
          * struct: full list of the graph;
          * nome_grafo: name of the graph;
          
@@ -152,12 +142,10 @@ SYNCHRONIZATION: Select "compose.gv" and "parallel.gv" leave onli one of the teo
 
 * myfunc.py: contain a lot of side function.
 
-* strtogr.py: contain one function:
-    * struct_gr(path, nome_grafo, struct, draw): fill an empty list with data belonging to a Structured Global Graph.
+* parse_and_draw.py: contain one function:
+    * parse_and_draw(path, graph_name): translate from Structured Global Graph to Unstructured Global Graph and it draw the graph
         * path: path of the graph;
-        * nome_grafo: name of the graph;
-        * struct: new empty list;
-        * draw: 1 give as output also the PDF whit the result, 0 otherwise.
+        * graph_name: name of the graph;
         
 * fuseplus.py: contain one function:
     * fuseplus(cmp, n1, n2): transform two partecipant in a list that contain every possible couple of fusion.
@@ -174,6 +162,7 @@ SYNCHRONIZATION: Select "compose.gv" and "parallel.gv" leave onli one of the teo
     
 
 ## Author
-**Davide Schiavi** - [dedo94](https://github.com/dedo94) – davideschiavi94@gmail.com
-
+**Davide Schiavi** - [dedo94](https://github.com/dedo94) - davideschiavi94@gmail.com
+**Simone Orlando** - (https://github.com/simoneorlando) - simoneorlando.cs@gmail.com
+**Ivan Lanese** - (https://github.com/lanese) - ivan.lanese@gmail.com
 Distributed under the MIT license. See [LICENSE](LICENSE) for more information.
